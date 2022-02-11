@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Donut(models.Model):
@@ -17,23 +18,15 @@ class Cart(models.Model):
     def __str__(self):
         pass
 
-class User(models.Model):
-    user_name = models.CharField(max_length=15)
-    password = models.CharField(max_length=15)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user_name
-
 class Review(models.Model):
-    CHOICES = [1,2,3,4,5]
+    # CHOICES = [1,2,3,4,5]
 
     content = models.CharField(max_length=200)
-    rating = models.IntegerField(
-        max_length=1,
-        choices = CHOICES,
-        default = CHOICES[4]
-    )
+    # rating = models.IntegerField(
+    #     max_length=1,
+    #     choices = CHOICES,
+    #     default = CHOICES[4]
+    # )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     donut = models.ForeignKey(Donut, on_delete=models.CASCADE)
 
