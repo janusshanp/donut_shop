@@ -1,7 +1,27 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Cart View</h1>
+<h2>Your Cart</h2>
+<a href="{% url 'shop' %}">Continue Shopping</a>
 
-<form action="{% url 'checkout'%}">
+<table>
+	<tr>
+		<th>Product</th>
+		<th></th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+	{% for donut in donuts %}
+	<tr>
+		<td><img src="{{donut.image}}" /></td>
+		<td>{{donut.name}}</td>
+		<td>{{donut.price}}</td>
+		<td>1</td>
+		<td>100</td>
+	</tr>
+	{% endfor %}
+</table>
+
+<form action="{% url 'payment'%}">
 	<button>Checkout</button>
 </form>
 {% endblock %}

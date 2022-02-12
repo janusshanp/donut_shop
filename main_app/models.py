@@ -23,16 +23,17 @@ class Order(models.Model):
     order_no = models.IntegerField()
     delivery_date= models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    donut = models.ManyToManyField(Donut)
+    donuts = models.ManyToManyField(Donut)
 
     def __str__(self):
         return f"No. {self.order_no}"
 
 class Cart(models.Model):
-    donut = models.ManyToManyField(Donut)
+    donuts = models.ManyToManyField(Donut)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
-        return f"{self.user}'s Cart"
+        return f"{self.user}"
 
 class Review(models.Model):
 
@@ -43,7 +44,7 @@ class Review(models.Model):
         default = CHOICES[4][0]
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    donut = models.ForeignKey(Donut, on_delete=models.CASCADE)
+    donuts = models.ForeignKey(Donut, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user}'s {self.donut} Review"

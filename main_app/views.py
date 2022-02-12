@@ -9,10 +9,13 @@ def home(request):
     return render(request, 'home.html')
 
 def cart_index(request):
-    return render(request,'cart/index.html')
+    cart = Cart.objects.get(user = request.user)
+    donuts = cart.donuts.all()
+    print(donuts)
+    return render(request,'cart/index.html', {'cart': cart, 'donuts': donuts})
 
-def cart_checkout(request):
-    return render(request,'cart/checkout.html')
+def cart_payment(request):
+    return render(request,'cart/payment.html')
 
 def donuts_index(request):
     donuts = Donut.objects.all()
