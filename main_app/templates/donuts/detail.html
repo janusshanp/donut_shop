@@ -9,7 +9,10 @@
 		<p><img src="{{ donut.image }}" /></p>
 	</div>
 	<div class="card-action">
-		<a href="">Add to cart</a>
+		<form action="{% url 'add_cart' donut.id %}" method="post">
+			{% csrf_token %}
+			<input type="submit" class="btn" value="Add to cart" />
+		</form>
 	</div>
 </div>
 {% endblock %}

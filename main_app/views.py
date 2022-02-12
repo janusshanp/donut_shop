@@ -24,6 +24,12 @@ def donuts_index(request):
 def donut_detail(request, donut_id):
     donut = Donut.objects.get(id=donut_id)
     return render(request, 'donuts/detail.html',{'donut': donut})
+    
+def add_donut_cart(request, donut_id):
+    donut = Donut.objects.get(id = donut_id)
+    cart = Cart.objects.get(user = request.user)
+    cart.donuts.add(donut)
+    return redirect('detail', donut_id= donut_id)
 
 def signup(request):
   error_message = ''
