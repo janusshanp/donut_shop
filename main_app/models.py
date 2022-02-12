@@ -1,45 +1,63 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+CHOICES = (
+    ('1', 'One Star'),
+    ('2', 'Two Star'),
+    ('3', 'Three Star'),
+    ('4', 'Four Star'),
+    ('5', 'Five Star'),
+)
 # Create your models here.
 class Donut(models.Model):
     name = models.CharField(max_length=15)
     description = models.CharField(max_length=200)
-    price = models.IntegerField()
+    price = models.FloatField()
     special = models.BooleanField()
     image = models.CharField(max_length=200)
+    # order = models.ForeignKey(Order, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
-class Cart(models.Model):
-    donut_quantity = models.IntegerField()
-    donut = models.ManyToManyField(Donut)
-
-    def __str__(self):
-        pass
-
-class Review(models.Model):
-    # CHOICES = [1,2,3,4,5]
-
-    content = models.CharField(max_length=200)
-    # rating = models.IntegerField(
-    #     max_length=1,
-    #     choices = CHOICES,
-    #     default = CHOICES[4]
-    # )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    donut = models.ForeignKey(Donut, on_delete=models.CASCADE)
-
-class Orders(models.Model):
+class Order(models.Model):
     order_no = models.IntegerField()
     delivery_date= models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    donut = models.ManyToManyField(Donut)
+
+    def __str__(self):
+        return f"No. {self.order_no}"
+
+class Cart(models.Model):
+    donut = models.ManyToManyField(Donut)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.user}'s Cart"
+
+class Review(models.Model):
+
+    content = models.CharField(max_length=200)
+    rating = models.CharField(
+        max_length= 1,
+        choices = CHOICES,
+        default = CHOICES[4][0]
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    donut = models.ForeignKey(Donut, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user}'s {self.donut} Review"
+
+
 
 class Profile(models.Model):
     email = models.CharField(max_length=40)
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.first_name}'s Profile"
 
 class Delivery_Address(models.Model):
     address = models.CharField(max_length=15)
@@ -49,3 +67,6 @@ class Delivery_Address(models.Model):
     Province = models.CharField(max_length=15)
     postal_code = models.CharField(max_length=7)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.profile}'s Delivery Address {self.pk}" 
