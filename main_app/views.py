@@ -6,6 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 def home(request):
     return render(request, 'home.html')
 
+def cart_index(request):
+    return render(request,'cart/index.html')
+
+def donuts_index(request):
+    return render(request, 'donuts/index.html')
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
