@@ -7,7 +7,7 @@ class Donut(models.Model):
     description = models.CharField(max_length=200)
     price = models.IntegerField()
     special = models.BooleanField()
-
+    image = models.CharField(max_length=200)
     def __str__(self):
         return self.name
 
