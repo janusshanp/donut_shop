@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
+from .models import *
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -9,8 +11,16 @@ def home(request):
 def cart_index(request):
     return render(request,'cart/index.html')
 
+def cart_checkout(request):
+    return render(request,'cart/checkout.html')
+
 def donuts_index(request):
-    return render(request, 'donuts/index.html')
+    donuts = Donut.objects.all()
+    return render(request, 'donuts/index.html', {'donuts': donuts})
+
+def donut_detail(request, donut_id):
+    donut = Donut.objects.get(id=donut_id)
+    return render(request, 'donuts/detail.html',{'donut': donut})
 
 def signup(request):
   error_message = ''

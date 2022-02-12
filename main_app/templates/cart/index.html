@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Cart View</h1>
 
-<button></button>
+<form action="{% url 'checkout'%}">
+	<button>Checkout</button>
+</form>
 {% endblock %}

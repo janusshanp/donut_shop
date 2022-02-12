@@ -1,4 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 
 <h1>Shop</h1>
-{% endblock %}
+{% for donut in donuts %}
+<a href="{% url 'detail' donut.id %}">
+	<div class="grid">
+		<div class="card">
+			<p><img src="{{ donut.image }}" /></p>
+		</div>
+	</div>
+</a>
+{% endfor %} {% endblock %}
