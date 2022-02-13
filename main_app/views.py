@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-
+from .forms import DeliveryForm
 from .models import *
 
 # Create your views here.
@@ -15,7 +15,17 @@ def cart_index(request):
     return render(request,'cart/index.html', {'cart': cart, 'donuts': donuts})
 
 def cart_payment(request):
-    return render(request,'cart/payment.html')
+    cart = Cart.objects.get(user = request.user)
+    donuts = cart.donuts.all()
+    delivery_form = DeliveryForm()
+    return render(request,'cart/payment.html', {'donuts': donuts, 'delivery_form': delivery_form})
+
+def add_info(request):
+    form = DeliveryForm(request.POST)
+    if form.is_valid():
+        new_delivery_address
+
+    return render(request, 'cart/review.html')
 
 def donuts_index(request):
     donuts = Donut.objects.all()

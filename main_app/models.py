@@ -49,18 +49,15 @@ class Review(models.Model):
     def __str__(self):
         return f"{self.user}'s {self.donut} Review"
 
-
-
 class Profile(models.Model):
-    email = models.CharField(max_length=40)
-    first_name = models.CharField(max_length=15)
-    last_name = models.CharField(max_length=15)
+    rewards = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.first_name}'s Profile"
 
 class Delivery_Address(models.Model):
+    email = models.CharField(max_length=25)
     address = models.CharField(max_length=15)
     apartment = models.CharField(max_length=15)
     city = models.CharField(max_length=15)

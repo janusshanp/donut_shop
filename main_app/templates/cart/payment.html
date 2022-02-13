@@ -1,7 +1,25 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Payment View</h1>
+<div class="contact">
+	<form method="POST" action="">
+		{% csrf_token %}
+		<h4>Delivery Information</h4>
+		{{ delivery_form.as_p}}
 
-<form action="">
-	<button>Confirm</button>
-</form>
+		<button class="btn">Confirm</button>
+	</form>
+</div>
+<div class="cart">
+	<table>
+		{% for donut in donuts %}
+		<tr>
+			<td><img src="{{donut.image}}" /></td>
+			<td>{{donut.name}}</td>
+			<td>{{donut.price}}</td>
+			<td>1</td>
+			<td>100</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
 {% endblock %}
