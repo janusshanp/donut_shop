@@ -54,7 +54,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.first_name}'s Profile"
+        return f"{self.user}'s Profile"
 
 class Delivery_Address(models.Model):
     email = models.CharField(max_length=25)
