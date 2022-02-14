@@ -138,6 +138,10 @@ def delete_donut (request, donut_id):
     cart.donuts.remove(donut)
     return redirect('cart')
 
+def add_review(request, donut_id):
+    
+    return redirect('detail', donut_id=donut_id)
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':

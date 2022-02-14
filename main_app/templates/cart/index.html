@@ -14,7 +14,7 @@
 
 <table>
 	<tr>
-		<th id="shoe">Product</th>
+		<th>Product</th>
 		<th></th>
 		<th>Price</th>
 		<th>Quantity</th>
@@ -27,11 +27,13 @@
 		<td>{{donut.price}}</td>
 		<td>
 			<div class="quantity">
-				<button>+</button>
-				<button>-</button>
-				<input type="number" min=1 value=1></td>
+				<button id="minus">-</button>
+				<input id="cart-q" type="number" min=1 value=1>
+				<button id="plus">+</button>
 			</div>
-		<td>100</td>
+		</td>
+		<td id="total">
+		</td>
 	{% if checkout %}
 		<td><a href = "{% url 'delete_donut' donut.id %}" class="btn">Delete</a></td>
 	{% endif %}
@@ -59,4 +61,23 @@
 	  setDefaultDate: true,
 	  autoClose: true
 	});
+
+	let plusButton = document.getElementById('plus')
+	let minusButton = document.getElementById('minus')
+	let inputBox = document.getElementById('cart-q')
+	let totalBox = document.getElementById('total')
+
+	plusButton.addEventListener("click",addFunction)
+	minusButton.addEventListener("click",minusFunction)
+
+	function addFunction () {
+	countEl.textContent = parseInt(countEl.textContent) + parseInt(inputValue.value)
+	countTextColor()
+// }
+
+// function minusFunction () {
+// 	countEl.textContent = parseInt(countEl.textContent) - parseInt(inputValue.value)
+// 	countTextColor()
+// }
+
 </script>

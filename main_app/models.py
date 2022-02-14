@@ -38,7 +38,6 @@ class Cart(models.Model):
         return f"{self.user}"
 
 class Review(models.Model):
-
     content = models.CharField(max_length=200)
     rating = models.CharField(
         max_length= 1,
