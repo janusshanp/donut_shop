@@ -2,7 +2,8 @@
 
 <h2>Your Cart</h2>
 <a href="{% url 'shop' %}">Continue Shopping</a>
-{% if order%}
+{% if order %}
+	<h1>Order Complete</h1>
 	<p>Your Order No. is {{order.order_no}}</p>
 {% endif %}
 <table>
@@ -20,17 +21,34 @@
 		<td>{{donut.price}}</td>
 		<td>1</td>
 		<td>100</td>
+	{% if checkout %}
+		<td><a href = "{% url 'delete_donut' donut.id %}" class="btn">Delete</a></td>
+	{% endif %}	
 	</tr>
 	{% endfor %}
 </table>
 
 {% if confirm %}
+<h1>Review Page</h1>
 	<form action="{% url 'cart_complete'%}">
 		<button class="btn">Complete</button>
 	</form>
 {% elif checkout %}
-	<form action="{% url 'payment'%}">
+	
+	<form action="{% url 'payment'%}" method="post">
+		{% csrf_token %}
+		<input name="date" type="datetime-local" id="id_date"></input>
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}
 {% endblock %}
+
+
+<script>
+	var dateEl = document.getElementById('id_date');
+	M.Datepicker.init(dateEl, {
+	  defaultDate: new Date(),
+	  setDefaultDate: true,
+	  autoClose: true
+	});
+</script>

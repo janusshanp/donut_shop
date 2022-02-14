@@ -15,13 +15,13 @@ class Donut(models.Model):
     price = models.FloatField()
     special = models.BooleanField()
     image = models.CharField(max_length=200)
-    
+
     def __str__(self):
         return self.name
 
 class Order(models.Model):
     order_no = models.IntegerField()
-    delivery_date= models.DateField()
+    delivery_date= models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     donuts = models.ManyToManyField(Donut)
 
@@ -31,7 +31,7 @@ class Order(models.Model):
 class Cart(models.Model):
     donuts = models.ManyToManyField(Donut)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    date = models.DateTimeField('order date')
     def __str__(self):
         return f"{self.user}"
 

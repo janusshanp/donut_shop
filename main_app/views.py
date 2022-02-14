@@ -1,7 +1,9 @@
+from venv import create
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .forms import DeliveryForm
 from datetime import date 
 from .models import *
@@ -14,8 +16,10 @@ class DeliveryUpdate(UpdateView):
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def cart_index(request):
     cart = Cart.objects.get(user = request.user)
+    print(cart.date)
     donuts = cart.donuts.all()
     checkout = True 
     confirm = False
@@ -25,9 +29,10 @@ def cart_index(request):
         confirm = True
     if request.path_info == '/cart/complete/':
         checkout = False 
+        num = create_order_no()
         order = Order(
-            order_no=1000, 
-            delivery_date= date.today(), 
+            order_no= num, 
+            delivery_date= cart.date, 
             user = request.user, 
         )
         order.save()
@@ -41,20 +46,33 @@ def cart_index(request):
         'checkout': checkout,
         'order': order
     })
+def create_order_no():
+    if Order.objects.last():
+        num = Order.objects.last()
+        num.order_no += 1
+        return num.order_no
+    else:
+        return 1000
 
 def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
+    cart.date = request.POST['date']
+    cart.save()
     donuts = cart.donuts.all()
-    address = request.user.profile_set.first().delivery_address_set.first()
-    delivery_form = DeliveryForm(initial= {
-        'email': address.email,
-        'address': address.address,
-        'apartment': address.apartment,
-        'city': address.city,
-        'country': address.country,
-        'Province': address.Province,
-        'postal_code': address.postal_code
-    })
+    if request.user.profile_set.first().delivery_address_set.first():
+        address = request.user.profile_set.first().delivery_address_set.first()
+        delivery_form = DeliveryForm(initial= {
+            'email': address.email,
+            'address': address.address,
+            'apartment': address.apartment,
+            'city': address.city,
+            'country': address.country,
+            'Province': address.Province,
+            'postal_code': address.postal_code
+        })
+    else:
+        delivery_form = DeliveryForm()
+        address = 0
     return render(request,'cart/payment.html', {
         'donuts': donuts, 
         'delivery_form': delivery_form,
@@ -63,22 +81,29 @@ def cart_payment(request):
 
 def add_info(request):
     profile = request.user.profile_set.first()
-    address = request.user.profile_set.first().delivery_address_set.first()
-    data = {
-        'email': address.email,
-        'address': address.address,
-        'apartment': address.apartment,
-        'city': address.city,
-        'country': address.country,
-        'Province': address.Province,
-        'postal_code': address.postal_code
-    }
-    form = DeliveryForm(request.POST, initial=data)
-    if form.has_changed():
+    if request.user.profile_set.first().delivery_address_set.first():
+        address = request.user.profile_set.first().delivery_address_set.first()
+        data = {
+            'email': address.email,
+            'address': address.address,
+            'apartment': address.apartment,
+            'city': address.city,
+            'country': address.country,
+            'Province': address.Province,
+            'postal_code': address.postal_code
+        }
+        form = DeliveryForm(request.POST, initial=data)
+        if form.has_changed():
+            if form.is_valid():
+                delivery_address = form.save(commit=False)
+                delivery_address.profile_id = profile.id
+                delivery_address.save()
+    else:
+        form = DeliveryForm(request.POST)
         if form.is_valid():
-            delivery_address = form.save(commit=False)
-            delivery_address.profile_id = profile.id
-            delivery_address.save()
+                delivery_address = form.save(commit=False)
+                delivery_address.profile_id = profile.id
+                delivery_address.save() 
     return redirect('cart_review')
 
 def donuts_index(request):
@@ -95,6 +120,12 @@ def add_donut_cart(request, donut_id):
     cart.donuts.add(donut)
     return redirect('detail', donut_id= donut_id)
 
+def delete_donut (request, donut_id):
+    donut = Donut.objects.get(id = donut_id)
+    cart = Cart.objects.get(user = request.user)
+    cart.donuts.remove(donut)
+    return redirect('cart')
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -103,6 +134,7 @@ def signup(request):
       user = form.save()
       login(request, user)
       Profile(rewards=0, user = user).save()
+      Cart(user=user, date= date.today()).save()
       return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
