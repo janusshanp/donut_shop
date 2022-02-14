@@ -1,7 +1,10 @@
 {% extends 'base.html' %} {% block content %}
+
 <h2>Your Cart</h2>
 <a href="{% url 'shop' %}">Continue Shopping</a>
-
+{% if order%}
+	<p>Your Order No. is {{order.order_no}}</p>
+{% endif %}
 <table>
 	<tr>
 		<th>Product</th>
@@ -25,7 +28,7 @@
 	<form action="{% url 'cart_complete'%}">
 		<button class="btn">Complete</button>
 	</form>
-{% else %}
+{% elif checkout %}
 	<form action="{% url 'payment'%}">
 		<button class="btn">Checkout</button>
 	</form>

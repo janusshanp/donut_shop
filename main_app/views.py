@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from .forms import DeliveryForm
+from datetime import date 
 from .models import *
 
 # Create your views here.
@@ -16,14 +17,29 @@ def home(request):
 def cart_index(request):
     cart = Cart.objects.get(user = request.user)
     donuts = cart.donuts.all()
+    checkout = True 
     confirm = False
+    order = 0
     print(request.path_info)
     if request.path_info == '/cart/review/':
         confirm = True
+    if request.path_info == '/cart/complete/':
+        checkout = False 
+        order = Order(
+            order_no=1000, 
+            delivery_date= date.today(), 
+            user = request.user, 
+        )
+        order.save()
+        for donut in donuts:
+            order.donuts.add(donut)
+        order.save()
     return render(request,'cart/index.html', {
         'cart': cart, 
         'donuts': donuts,
-        'confirm': confirm
+        'confirm': confirm,
+        'checkout': checkout,
+        'order': order
     })
 
 def cart_payment(request):
