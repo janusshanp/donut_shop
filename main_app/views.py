@@ -27,18 +27,22 @@ def cart_index(request):
     print(request.path_info)
     if request.path_info == '/cart/review/':
         confirm = True
+        checkout = False
     if request.path_info == '/cart/complete/':
         checkout = False 
         num = create_order_no()
         order = Order(
             order_no= num, 
             delivery_date= cart.date, 
+            ordered_date = date.today(),
             user = request.user, 
         )
         order.save()
         for donut in donuts:
             order.donuts.add(donut)
         order.save()
+        cart.donuts.clear()
+        cart.date = date.today()
     return render(request,'cart/index.html', {
         'cart': cart, 
         'donuts': donuts,
@@ -54,6 +58,7 @@ def create_order_no():
     else:
         return 1000
 
+@login_required
 def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
     cart.date = request.POST['date']
@@ -79,6 +84,13 @@ def cart_payment(request):
         'address': address
     })
 
+@login_required
+def account_profile(request):
+    orders = request.user.order_set.all()
+    print(orders)
+    return render(request, 'profile/index.html', {'orders': orders})
+
+@login_required
 def add_info(request):
     profile = request.user.profile_set.first()
     if request.user.profile_set.first().delivery_address_set.first():

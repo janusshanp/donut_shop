@@ -1,14 +1,20 @@
 {% extends 'base.html' %} {% block content %}
 
-<h2>Your Cart</h2>
-<a href="{% url 'shop' %}">Continue Shopping</a>
-{% if order %}
-	<h1>Order Complete</h1>
+{% if checkout %}
+	<h2>Your Cart</h2>
+	<a href="{% url 'shop' %}">Continue Shopping</a>
+{% elif order %}
+	<h2>Order Complete</h2>
 	<p>Your Order No. is {{order.order_no}}</p>
+{% elif confirm  %}
+	<h2>Review Page</h2>
+	<a href="{% url 'shop' %}">Continue Shopping</a>
+	<a href="{% url 'cart' %}">Edit Cart</a>
 {% endif %}
+
 <table>
 	<tr>
-		<th>Product</th>
+		<th id="shoe">Product</th>
 		<th></th>
 		<th>Price</th>
 		<th>Quantity</th>
@@ -19,30 +25,32 @@
 		<td><img src="{{donut.image}}" /></td>
 		<td>{{donut.name}}</td>
 		<td>{{donut.price}}</td>
-		<td>1</td>
+		<td>
+			<div class="quantity">
+				<button>+</button>
+				<button>-</button>
+				<input type="number" min=1 value=1></td>
+			</div>
 		<td>100</td>
 	{% if checkout %}
 		<td><a href = "{% url 'delete_donut' donut.id %}" class="btn">Delete</a></td>
-	{% endif %}	
+	{% endif %}
 	</tr>
 	{% endfor %}
 </table>
 
 {% if confirm %}
-<h1>Review Page</h1>
 	<form action="{% url 'cart_complete'%}">
 		<button class="btn">Complete</button>
 	</form>
 {% elif checkout %}
-	
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
-		<input name="date" type="datetime-local" id="id_date"></input>
+		<input name="date" type="datetime-local" id="id_date" required></input>
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}
 {% endblock %}
-
 
 <script>
 	var dateEl = document.getElementById('id_date');

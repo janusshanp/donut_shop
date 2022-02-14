@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{user}}'s Account Settings</h1>
+<table>
+    <th>Order</th>
+    <th>Date</th>
+    <th>Total</th>
+{% for order in orders %}
+<tr>
+    <td>{{order.order_no}}</td>
+    <td>{{order.ordered_date}}</td>
+{% endfor %}    
+</table>
+{% endblock %}

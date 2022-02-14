@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 CHOICES = (
     ('1', 'One Star'),
     ('2', 'Two Star'),
@@ -22,6 +23,7 @@ class Donut(models.Model):
 class Order(models.Model):
     order_no = models.IntegerField()
     delivery_date= models.DateTimeField()
+    ordered_date = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     donuts = models.ManyToManyField(Donut)
 
