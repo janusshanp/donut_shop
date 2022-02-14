@@ -21,7 +21,13 @@
 	{% endfor %}
 </table>
 
-<form action="{% url 'payment'%}">
-	<button class="btn">Checkout</button>
-</form>
+{% if confirm %}
+	<form action="{% url 'cart_complete'%}">
+		<button class="btn">Complete</button>
+	</form>
+{% else %}
+	<form action="{% url 'payment'%}">
+		<button class="btn">Checkout</button>
+	</form>
+{% endif %}
 {% endblock %}

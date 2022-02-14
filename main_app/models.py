@@ -67,4 +67,4 @@ class Delivery_Address(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.profile}'s Delivery Address {self.pk}" 
+        return f"{self.profile}'s Delivery Address" 

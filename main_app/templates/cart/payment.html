@@ -1,11 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 <div class="pay-container">
 <div class="contact">
-	<form method="POST" action="">
+	<form method="POST" action="{% url 'add_info' %}">
 		{% csrf_token %}
 		<h4>Delivery Information</h4>
 		{{ delivery_form.as_p}}
-
 		<button class="btn">Confirm</button>
 	</form>
 </div>

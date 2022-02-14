@@ -1,30 +1,48 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from .forms import DeliveryForm
 from .models import *
 
 # Create your views here.
+class DeliveryUpdate(UpdateView):
+    model = Delivery_Address
+    fields = '__all__'
+
 def home(request):
     return render(request, 'home.html')
 
 def cart_index(request):
     cart = Cart.objects.get(user = request.user)
     donuts = cart.donuts.all()
-    print(donuts)
-    return render(request,'cart/index.html', {'cart': cart, 'donuts': donuts})
+    confirm = False
+    print(request.path_info)
+    if request.path_info == '/cart/review/':
+        confirm = True
+    return render(request,'cart/index.html', {
+        'cart': cart, 
+        'donuts': donuts,
+        'confirm': confirm
+    })
 
 def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
     donuts = cart.donuts.all()
     delivery_form = DeliveryForm()
-    return render(request,'cart/payment.html', {'donuts': donuts, 'delivery_form': delivery_form})
+    return render(request,'cart/payment.html', {
+        'donuts': donuts, 
+        'delivery_form': delivery_form
+    })
 
 def add_info(request):
     form = DeliveryForm(request.POST)
-    # if form.is_valid():
-    #     new_delivery_address
-    return render(request, 'cart/review.html')
+    profile = request.user.profile_set.first()
+    if form.is_valid():
+        delivery_address = form.save(commit=False)
+        delivery_address.profile_id = profile.id
+        delivery_address.save()
+    return redirect('cart_review')
 
 def donuts_index(request):
     donuts = Donut.objects.all()
