@@ -15,7 +15,7 @@ class Donut(models.Model):
     price = models.FloatField()
     special = models.BooleanField()
     image = models.CharField(max_length=200)
-    # order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.name
 
