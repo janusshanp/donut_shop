@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Delivery_Address
 
 class DeliveryForm(ModelForm):
@@ -13,4 +14,4 @@ class DeliveryForm(ModelForm):
             'Province',
             'postal_code' 
         ]
-        
+

@@ -45,19 +45,40 @@ def cart_index(request):
 def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
     donuts = cart.donuts.all()
-    delivery_form = DeliveryForm()
+    address = request.user.profile_set.first().delivery_address_set.first()
+    delivery_form = DeliveryForm(initial= {
+        'email': address.email,
+        'address': address.address,
+        'apartment': address.apartment,
+        'city': address.city,
+        'country': address.country,
+        'Province': address.Province,
+        'postal_code': address.postal_code
+    })
     return render(request,'cart/payment.html', {
         'donuts': donuts, 
-        'delivery_form': delivery_form
+        'delivery_form': delivery_form,
+        'address': address
     })
 
 def add_info(request):
-    form = DeliveryForm(request.POST)
     profile = request.user.profile_set.first()
-    if form.is_valid():
-        delivery_address = form.save(commit=False)
-        delivery_address.profile_id = profile.id
-        delivery_address.save()
+    address = request.user.profile_set.first().delivery_address_set.first()
+    data = {
+        'email': address.email,
+        'address': address.address,
+        'apartment': address.apartment,
+        'city': address.city,
+        'country': address.country,
+        'Province': address.Province,
+        'postal_code': address.postal_code
+    }
+    form = DeliveryForm(request.POST, initial=data)
+    if form.has_changed():
+        if form.is_valid():
+            delivery_address = form.save(commit=False)
+            delivery_address.profile_id = profile.id
+            delivery_address.save()
     return redirect('cart_review')
 
 def donuts_index(request):
