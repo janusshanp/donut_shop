@@ -139,8 +139,10 @@ def delete_donut (request, donut_id):
     return redirect('cart')
 
 def add_review(request, donut_id):
-    
-    return redirect('detail', donut_id=donut_id)
+    comment =request.POST['review_text']
+    donuts = Donut.objects.get(id=donut_id)
+    review= Review.objects.create(content=comment, rating=0, donuts=donuts, user=request.user)
+    return redirect('detail', donut_id=donut_id, review=review )
 
 def signup(request):
   error_message = ''
