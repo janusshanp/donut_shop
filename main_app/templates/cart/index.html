@@ -28,7 +28,7 @@
 		<td>
 			<div class="quantity">
 				<button id="minus">-</button>
-				<input id="cart-q" type="number" min=1 value=1>
+				<input id="cart-q" type="number" value=1>
 				<button id="plus">+</button>
 			</div>
 		</td>
@@ -39,6 +39,14 @@
 	{% endif %}
 	</tr>
 	{% endfor %}
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>Subtotal</td>
+		<td id="total-cart"></td>
+	</tr>
+
 </table>
 
 {% if confirm %}
@@ -49,6 +57,8 @@
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
 		<input name="date" type="datetime-local" id="id_date" required>
+		<p>Notes</p>
+		<input name="notes" type="text" placeholder="Tell us what you need!">
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}
@@ -66,25 +76,45 @@
 	inputBox = document.querySelectorAll('#cart-q');
 	totalBox = document.querySelectorAll('#total');
 	priceBox = document.querySelectorAll('#price');
+	totalcart = document.getElementById('total-cart')
 
 	for (let i=0; i < plusButton.length; i++){
 		totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
 	}
 
+	updateTotal()
+	
 	for (let i=0; i < plusButton.length; i++){
 		plusButton[i].addEventListener("click",function(){
-			console.log('hi')
 			inputBox[i].value = parseInt(inputBox[i].value) + 1
 			totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+			updateTotal()
 		})
 		minusButton[i].addEventListener("click",function(){
 			if (inputBox[i].value > 1){
 				inputBox[i].value = parseInt(inputBox[i].value) - 1
 				totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+				updateTotal()
 			}
 		})
 	}
 	
-</script>
+	function updateTotal(){
+		total = 0
+		for (let i=0; i < plusButton.length; i++){
+			total += parseFloat(totalBox[i].textContent)
+		}
+		totalcart.textContent = total.toFixed(2)
+	}
 	
+</script>
+
 {% endblock %}
+
+fetch(url, {
+	method: 'POST'
+	body: ({
+		quantity: x
+		donut: x
+	}
+})

@@ -34,6 +34,7 @@ class Cart(models.Model):
     donuts = models.ManyToManyField(Donut)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField('order date')
+    
     def __str__(self):
         return f"{self.user}"
 
