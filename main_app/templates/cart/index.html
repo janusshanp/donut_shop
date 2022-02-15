@@ -24,7 +24,7 @@
 	<tr>
 		<td><img src="{{donut.image}}" /></td>
 		<td>{{donut.name}}</td>
-		<td>{{donut.price}}</td>
+		<td id = "price">{{donut.price}}</td>
 		<td>
 			<div class="quantity">
 				<button id="minus">-</button>
@@ -61,23 +61,26 @@
 	  setDefaultDate: true,
 	  autoClose: true
 	});
+	console.log('hi')
 
-	let plusButton = document.getElementById('plus')
-	let minusButton = document.getElementById('minus')
-	let inputBox = document.getElementById('cart-q')
-	let totalBox = document.getElementById('total')
+plusButton = document.getElementById('plus');
+	let minusButton = document.getElementById('minus');
+	let inputBox = document.getElementById('cart-q');
+	let totalBox = document.getElementById('total');
+	let priceBox = document.getElementById('price');
 
-	plusButton.addEventListener("click",addFunction)
+plusButton.addEventListener("click",function(){
+	console.log('hi')
+})
 	minusButton.addEventListener("click",minusFunction)
 
-	function addFunction () {
-	countEl.textContent = parseInt(countEl.textContent) + parseInt(inputValue.value)
-	countTextColor()
-// }
+function addFunction () {
+		inputBox.textContent = parseInt(inputBox.textContent) + 1
+		totalBox.textContent = parseInt(inputBox.textContent) * parseInt(priceBox.textContent)
+}
 
 // function minusFunction () {
 // 	countEl.textContent = parseInt(countEl.textContent) - parseInt(inputValue.value)
 // 	countTextColor()
 // }
-
 </script>
