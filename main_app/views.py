@@ -1,4 +1,5 @@
 from venv import create
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -20,10 +21,6 @@ def home(request):
 def cart_index(request):
     cart = Cart.objects.get(user = request.user)
     user_items = cart.itemcart_set.all()
-    # for item in user_items:
-    #     print(item.donut.name)
-    #     print(item.quantity)
-    # donuts = cart.donuts.all()
     checkout = True 
     confirm = False
     order = 0
@@ -66,7 +63,7 @@ def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
     cart.date = request.POST['date']
     cart.save()
-    donuts = cart.donuts.all()
+    user_items = cart.itemcart_set.all()
     if request.user.profile_set.first().delivery_address_set.first():
         address = request.user.profile_set.first().delivery_address_set.first()
         delivery_form = DeliveryForm(initial= {
@@ -82,7 +79,7 @@ def cart_payment(request):
         delivery_form = DeliveryForm()
         address = 0
     return render(request,'cart/payment.html', {
-        'donuts': donuts, 
+        'items': user_items, 
         'delivery_form': delivery_form,
         'address': address
     })
@@ -162,3 +159,13 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+def quantity_update(request, donut_id, item_id, amount_id):
+    item = ItemCart.objects.get(id= item_id)
+    item.quantity = int(amount_id)
+    item.save()
+    response = HttpResponse("done")
+    return response 
+
+
+

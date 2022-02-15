@@ -51,7 +51,7 @@ class ItemCart(models.Model):
     )
 
     def __str__(self):
-        return f"Cart {self.cart}'s Items"
+        return f"Cart {self.cart}'s Items with {self.donut}"
 
 class Review(models.Model):
     content = models.CharField(max_length=200)

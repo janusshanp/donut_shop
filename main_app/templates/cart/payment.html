@@ -10,31 +10,37 @@
 	</div>
 	<div class="col s3">
 		<table>
-			{% for donut in donuts %}
+			{% for item in items %}
 			<tr>
-				<td><img src="{{donut.image}}" /></td>
-				<td>{{donut.name}}</td>
-				<td>{{donut.price}}</td>
-				<td>1</td>
-				<td>100</td>
+				<td><img src="{{item.donut.image}}"></td>
+				<td>{{item.donut.name}}</td>
+				<td class="price">{{item.donut.price}}</td>
+				<td class="quantity">{{item.quantity}}</td>
+				<td id="total"></td>
 			</tr>
 			{% endfor %}
 		</table>
-	</div> Quantity </div>
-<div class="cart">
-	<table>
-		{% for donut in donuts %}
-		<tr>
-			<td><img src="{{donut.image}}" /></td>
-			<td>{{donut.name}}</td>
-			<td>$(total)</td>
-		</tr>
-		{% endfor %}
-	</table>
-	<div>Subtotal $9.99</div>
-	<div>Delivery $9.99</div>
-	<div>Tax$9.99</div>
-	<div>Total$9.99</div>
-</div>
+		<div>Subtotal $<span id="subtotal">9.99</span></div>
+		<div>Delivery $2.99</div>
+		<div id="final-total">Total$9.99</div>
 
+<script>
+	totalBox = document.querySelectorAll('#total');
+	prices = document.querySelectorAll('.price');
+	quantites= document.querySelectorAll('.quantity');
+	subTotal= document.querySelectorAll('#subtotal');
+	finalTotal = document.querySelectorAll('#final-total')
+
+	total = 0.00
+	for (let i=0; i < prices.length; i++){
+		totalBox[i].textContent = (parseFloat(prices[i].textContent) * parseFloat(quantites[i].textContent)).toFixed(2)
+		total += parseFloat(totalBox[i].textContent)
+	}
+	console.log(total)
+
+	subTotal[0].textContent = total
+	finalTotal[0].textContent = parseFloat(subTotal[0].textContent) + 2.99 
+
+
+</script>
 {% endblock %}
