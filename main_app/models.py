@@ -49,7 +49,7 @@ class Review(models.Model):
     donuts = models.ForeignKey(Donut, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user}'s {self.donut} Review"
+        return f"{self.user}'s {self.donuts} Review"
 
 class Profile(models.Model):
     rewards = models.IntegerField()

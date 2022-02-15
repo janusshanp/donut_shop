@@ -14,12 +14,21 @@
 			<input type="submit" class="btn" value="Add to cart" />
 		</form>
 	</div>
-<div class="card">
-	<form action="{% url 'add_review' donut.id %}" method= "post" name="review">
-		{% csrf_token %}
-		<input type = "text">
-		<button type ="submit" class="btn">Add Review</button>
-	</form>	
-</div>
+	<table>
+		<tr>
+			{% for review in donut.review_set.all %}
+			<td>{{review.user}}</td>
+			<td>i'm a review {{review.content}}</td>
+			<td>i'm a rating {{review.rating}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<div class="card">
+		<form action="{% url 'add_review' donut.id %}" method="post">
+			{% csrf_token %}
+			<input type="text" name="review_text" />
+			<button type="submit" class="btn">Add Review</button>
+		</form>
+	</div>
 </div>
 {% endblock %}
