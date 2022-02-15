@@ -39,6 +39,7 @@ class Cart(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField('order date')
+    notes = models.TextField(blank=True)
     
     def __str__(self):
         return f"{self.user}"
