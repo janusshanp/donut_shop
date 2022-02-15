@@ -30,13 +30,28 @@ class Order(models.Model):
     def __str__(self):
         return f"No. {self.order_no}"
 
+
 class Cart(models.Model):
-    donuts = models.ManyToManyField(Donut)
+    donuts = models.ManyToManyField(
+        Donut,
+        through ='ItemCart',
+        through_fields=('cart', 'donut')
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField('order date')
     
     def __str__(self):
         return f"{self.user}"
+
+class ItemCart(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    donut = models.ForeignKey(Donut, on_delete=models.CASCADE)
+    quantity = models.IntegerField(
+        default=1
+    )
+
+    def __str__(self):
+        return f"Cart {self.cart}'s Items"
 
 class Review(models.Model):
     content = models.CharField(max_length=200)

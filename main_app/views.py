@@ -19,8 +19,11 @@ def home(request):
 @login_required
 def cart_index(request):
     cart = Cart.objects.get(user = request.user)
-    print(cart.date)
-    donuts = cart.donuts.all()
+    user_items = cart.itemcart_set.all()
+    # for item in user_items:
+    #     print(item.donut.name)
+    #     print(item.quantity)
+    # donuts = cart.donuts.all()
     checkout = True 
     confirm = False
     order = 0
@@ -38,14 +41,14 @@ def cart_index(request):
             user = request.user, 
         )
         order.save()
-        for donut in donuts:
-            order.donuts.add(donut)
+        for item in user_items:
+            order.donuts.add(item.donut)
         order.save()
         cart.donuts.clear()
         cart.date = date.today()
     return render(request,'cart/index.html', {
         'cart': cart, 
-        'donuts': donuts,
+        'items': user_items,
         'confirm': confirm,
         'checkout': checkout,
         'order': order

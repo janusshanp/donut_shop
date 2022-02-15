@@ -20,22 +20,22 @@
 		<th>Quantity</th>
 		<th>Total</th>
 	</tr>
-	{% for donut in donuts %}
+	{% for item in items %}
 	<tr>
-		<td><img src="{{donut.image}}" /></td>
-		<td>{{donut.name}}</td>
-		<td id = "price">{{donut.price}}</td>
+		<td><img src="{{item.donut.image}}" /></td>
+		<td>{{item.donut.name}}</td>
+		<td id = "price">{{item.donut.price}}</td>
 		<td>
 			<div class="quantity">
 				<button id="minus">-</button>
-				<input id="cart-q" type="number" value=1>
+				<input id="cart-q" type="number" value={{item.quantity}}>
 				<button id="plus">+</button>
 			</div>
 		</td>
 		<td id="total">
 		</td>
 	{% if checkout %}
-		<td><a href = "{% url 'delete_donut' donut.id %}" class="btn">Delete</a></td>
+		<td><a href = "{% url 'delete_donut' item.donut.id %}" class="btn">Delete</a></td>
 	{% endif %}
 	</tr>
 	{% endfor %}
@@ -111,10 +111,10 @@
 
 {% endblock %}
 
-fetch(url, {
+{% comment %} fetch(url, {
 	method: 'POST'
 	body: ({
 		quantity: x
 		donut: x
 	}
-})
+}) {% endcomment %}
