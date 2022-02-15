@@ -1,26 +1,26 @@
 {% extends 'base.html' %} {% block content %}
-<div class="pay-container">
-	<div class="contact">
-	<form method="POST" action="{% url 'add_info' %}">
-		{% csrf_token %}
-		<h4>Delivery Information</h4>
-		{{ delivery_form.as_p}}
-		<button class="btn">Confirm</button>
-	</form>
+<div class="row">
+	<div class="col s9">
+		<form method="POST" action="{% url 'add_info' %}">
+			{% csrf_token %}
+			<h4>Delivery Information</h4>
+			{{ delivery_form.as_p}}
+			<button class="btn">Confirm</button>
+		</form>
 	</div>
-</div>
-<div class="cart">
-	<table>
-		{% for donut in donuts %}
-		<tr>
-			<td><img src="{{donut.image}}" /></td>
-			<td>{{donut.name}}</td>
-			<td>{{donut.price}}</td>
-			<td>1</td>
-			<td>100</td>
-		</tr>
-		{% endfor %}
-	</table>
+	<div class="col s3">
+		<table>
+			{% for donut in donuts %}
+			<tr>
+				<td><img src="{{donut.image}}" /></td>
+				<td>{{donut.name}}</td>
+				<td>{{donut.price}}</td>
+				<td>1</td>
+				<td>100</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
 </div>
 
 {% endblock %}
