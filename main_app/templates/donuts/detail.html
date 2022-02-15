@@ -15,11 +15,14 @@
 		</form>
 	</div>
 	<table>
+		<th>User</th>
+		<th>Review</th>
+		<th>Rating</th>
 		<tr>
 			{% for review in donut.review_set.all %}
 			<td>{{review.user}}</td>
-			<td>i'm a review {{review.content}}</td>
-			<td>i'm a rating {{review.rating}}</td>
+			<td>{{review.content}}</td>
+			<td>{{review.rating}}</td>
 		</tr>
 		{% endfor %}
 	</table>
@@ -27,6 +30,7 @@
 		<form action="{% url 'add_review' donut.id %}" method="post">
 			{% csrf_token %}
 			<input type="text" name="review_text" />
+
 			<button type="submit" class="btn">Add Review</button>
 		</form>
 	</div>

@@ -8,45 +8,72 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Donut Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
-    <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="/" class="left brand-logo">Donut Shop</a></li>
-                </ul>
+    <nav role="navigation">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">Donut Shop</a>
                 <ul class="right">
-                    <li><a href="">Search</a></li>
-                    <li><a href="{% url 'account_profile' %}">Profile</a></li>
-                    <li><a href="{% url 'cart' %}">Cart</a></li>
-                    <li><a href="{% url 'shop' %}">Shop</a></li>
-                    <li><a href="">Daily Flavours</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">FAQ</a></li>
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                    {% else %}
-                    <li><a href="{% url 'login' %}">Log In</a></li>
-                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    {% endif %}    
-                    <ul>    
-                    </div>
-                </div> 
-            </nav>
-        </header>       
+                    <li> 
+                        <form>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="input-field inline">
+                                        <input id="search" type="search" required>
+                                        <label class="label-icon" for="search"><i class="material>search</i></label>
+                                        <i class="material-icons">close</i>
+                                    </div>    
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">Log In</a></li>
+                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                        {% endif %} 
+                </ul>
+        </div>
+    </nav>  
+    <header>
+        <nav role="sub-navigation">
+            <div class="brand-logo center">
+                    <ul class="nav">
+                        <div class="row center-align">
+                            <li><a href="{% url 'account_profile' %}">Profile</a></li>
+                            <li><a href="{% url 'cart' %}">Cart</a></li>
+                            <li><a href="{% url 'shop' %}">Shop</a></li>
+                            <li><a href="">Daily Flavours</a></li>
+                            <li><a href="">About</a></li>
+                            <li><a href="">FAQ</a></li>
+                        </div>    
+                    <ul>
+            </div> 
+        </nav>
+    </header>       
         <main class = "container">
             {% block content %}
             {% endblock %}
         </main>
-        <footer class="page-footer">
-            <ul class="center">
-                <li><a href="">Address</a></li>
-                <li><a href="">Contact Us</a></li>
-                <li><a href="">Follow Us</a></li>
-            </ul>
+
+        <footer class="page-footer center-align">
+            <div class="container">
+                <div class="row">
+                    <div class="col s4">
+                        <a href="">Address</a>
+                    </div>
+                    <div class="col s4">
+                        <a href="">Contact Us</a>
+                    </div>
+                    <div class="col s4">
+                        <a href="">Follow Us</a>
+                    </div>  
+                </div>
+            </div>
         </footer>
     </body>    
     </html>

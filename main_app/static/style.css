@@ -1,7 +1,18 @@
-#shoe {
-    color:red;
+.quantity {
+	display: flex;
+}
+h1 {
+	text-align: center !important;
+}
+a {
+	color: #362b24 !important;
+}
+nav {
+	background-color: white !important;
+	transform: translate(0) !important;
+	box-shadow: none !important;
 }
 
-.quantity {
-    display: flex;
+footer {
+	background-color: white !important;
 }
