@@ -48,39 +48,43 @@
 {% elif checkout %}
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
-		<input name="date" type="datetime-local" id="id_date" required></input>
+		<input name="date" type="datetime-local" id="id_date" required>
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}
-{% endblock %}
 
 <script>
-	var dateEl = document.getElementById('id_date');
+	{% comment %} var dateEl = document.getElementById('id_date');
 	M.Datepicker.init(dateEl, {
-	  defaultDate: new Date(),
-	  setDefaultDate: true,
-	  autoClose: true
-	});
-	console.log('hi')
+		defaultDate: new Date(),
+		setDefaultDate: true,
+		autoClose: true
+	});  {% endcomment %}
+	
+	plusButton = document.querySelectorAll('#plus');
+	minusButton = document.querySelectorAll('#minus');
+	inputBox = document.querySelectorAll('#cart-q');
+	totalBox = document.querySelectorAll('#total');
+	priceBox = document.querySelectorAll('#price');
 
-plusButton = document.getElementById('plus');
-	let minusButton = document.getElementById('minus');
-	let inputBox = document.getElementById('cart-q');
-	let totalBox = document.getElementById('total');
-	let priceBox = document.getElementById('price');
+	for (let i=0; i < plusButton.length; i++){
+		totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+	}
 
-plusButton.addEventListener("click",function(){
-	console.log('hi')
-})
-	minusButton.addEventListener("click",minusFunction)
-
-function addFunction () {
-		inputBox.textContent = parseInt(inputBox.textContent) + 1
-		totalBox.textContent = parseInt(inputBox.textContent) * parseInt(priceBox.textContent)
-}
-
-// function minusFunction () {
-// 	countEl.textContent = parseInt(countEl.textContent) - parseInt(inputValue.value)
-// 	countTextColor()
-// }
+	for (let i=0; i < plusButton.length; i++){
+		plusButton[i].addEventListener("click",function(){
+			console.log('hi')
+			inputBox[i].value = parseInt(inputBox[i].value) + 1
+			totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+		})
+		minusButton[i].addEventListener("click",function(){
+			if (inputBox[i].value > 1){
+				inputBox[i].value = parseInt(inputBox[i].value) - 1
+				totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+			}
+		})
+	}
+	
 </script>
+	
+{% endblock %}
