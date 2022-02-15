@@ -21,19 +21,22 @@
 		<th>Total</th>
 	</tr>
 	{% for item in items %}
-	<tr>
+	<tr class ="items" id="{{item.id}}">
 		<td><img src="{{item.donut.image}}" /></td>
 		<td>{{item.donut.name}}</td>
 		<td id = "price">{{item.donut.price}}</td>
 		<td>
-			<div class="quantity">
-				<button id="minus">-</button>
-				<input id="cart-q" type="number" value={{item.quantity}}>
-				<button id="plus">+</button>
-			</div>
+			{% if checkout %}
+				<div class="quantity">
+					<button id="minus">-</button>
+					<input id="{{item.donut.id}}" class="cart-q" type="number" value={{item.quantity}}>
+					<button id="plus">+</button>
+				</div>
+			{% else %}
+				<input id="{{item.donut.id}}" class="cart-q" type="number" value={{item.quantity}} disabled>
+			{% endif %}				
 		</td>
-		<td id="total">
-		</td>
+		<td id="total"></td>
 	{% if checkout %}
 		<td><a href = "{% url 'delete_donut' item.donut.id %}" class="btn">Delete</a></td>
 	{% endif %}
@@ -73,12 +76,13 @@
 	
 	plusButton = document.querySelectorAll('#plus');
 	minusButton = document.querySelectorAll('#minus');
-	inputBox = document.querySelectorAll('#cart-q');
+	inputBox = document.querySelectorAll('.cart-q');
 	totalBox = document.querySelectorAll('#total');
 	priceBox = document.querySelectorAll('#price');
+	items = document.querySelectorAll('.items');
 	totalcart = document.getElementById('total-cart')
 
-	for (let i=0; i < plusButton.length; i++){
+	for (let i=0; i < totalBox.length; i++){
 		totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
 	}
 
@@ -88,12 +92,14 @@
 		plusButton[i].addEventListener("click",function(){
 			inputBox[i].value = parseInt(inputBox[i].value) + 1
 			totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+			sendQuantity(inputBox[i].value, inputBox[i].id, items[i].id)
 			updateTotal()
 		})
 		minusButton[i].addEventListener("click",function(){
 			if (inputBox[i].value > 1){
 				inputBox[i].value = parseInt(inputBox[i].value) - 1
 				totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+				sendQuantity(inputBox[i].value, inputBox[i].id,items[i].id)
 				updateTotal()
 			}
 		})
@@ -101,20 +107,19 @@
 	
 	function updateTotal(){
 		total = 0
-		for (let i=0; i < plusButton.length; i++){
+		for (let i=0; i < totalBox.length; i++){
 			total += parseFloat(totalBox[i].textContent)
 		}
 		totalcart.textContent = total.toFixed(2)
 	}
 	
+	const BASE_URL = 'http://localhost:8000/cart/quantity/'
+
+	async function sendQuantity (amount, donutId, itemId) {
+		url = (`${BASE_URL}${donutId}/${itemId}/${amount}/`)
+		quantity = await fetch(url).then(console.log("hi"))
+	}
+	
 </script>
 
 {% endblock %}
-
-{% comment %} fetch(url, {
-	method: 'POST'
-	body: ({
-		quantity: x
-		donut: x
-	}
-}) {% endcomment %}
