@@ -24,11 +24,11 @@
 	<tr>
 		<td><img src="{{donut.image}}" /></td>
 		<td>{{donut.name}}</td>
-		<td>{{donut.price}}</td>
+		<td id = "price">{{donut.price}}</td>
 		<td>
 			<div class="quantity">
 				<button id="minus">-</button>
-				<input id="cart-q" type="number" min=1 value=1>
+				<input id="cart-q" type="number" value=1>
 				<button id="plus">+</button>
 			</div>
 		</td>
@@ -39,6 +39,14 @@
 	{% endif %}
 	</tr>
 	{% endfor %}
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>Subtotal</td>
+		<td id="total-cart"></td>
+	</tr>
+
 </table>
 
 {% if confirm %}
@@ -48,36 +56,65 @@
 {% elif checkout %}
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
-		<input name="date" type="datetime-local" id="id_date" required></input>
+		<input name="date" type="datetime-local" id="id_date" required>
+		<p>Notes</p>
+		<input name="notes" type="text" placeholder="Tell us what you need!">
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}
-{% endblock %}
 
 <script>
-	var dateEl = document.getElementById('id_date');
+	{% comment %} var dateEl = document.getElementById('id_date');
 	M.Datepicker.init(dateEl, {
-	  defaultDate: new Date(),
-	  setDefaultDate: true,
-	  autoClose: true
-	});
+		defaultDate: new Date(),
+		setDefaultDate: true,
+		autoClose: true
+	});  {% endcomment %}
+	
+	plusButton = document.querySelectorAll('#plus');
+	minusButton = document.querySelectorAll('#minus');
+	inputBox = document.querySelectorAll('#cart-q');
+	totalBox = document.querySelectorAll('#total');
+	priceBox = document.querySelectorAll('#price');
+	totalcart = document.getElementById('total-cart')
 
-	let plusButton = document.getElementById('plus')
-	let minusButton = document.getElementById('minus')
-	let inputBox = document.getElementById('cart-q')
-	let totalBox = document.getElementById('total')
+	for (let i=0; i < plusButton.length; i++){
+		totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+	}
 
-	plusButton.addEventListener("click",addFunction)
-	minusButton.addEventListener("click",minusFunction)
-
-	function addFunction () {
-	countEl.textContent = parseInt(countEl.textContent) + parseInt(inputValue.value)
-	countTextColor()
-// }
-
-// function minusFunction () {
-// 	countEl.textContent = parseInt(countEl.textContent) - parseInt(inputValue.value)
-// 	countTextColor()
-// }
-
+	updateTotal()
+	
+	for (let i=0; i < plusButton.length; i++){
+		plusButton[i].addEventListener("click",function(){
+			inputBox[i].value = parseInt(inputBox[i].value) + 1
+			totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+			updateTotal()
+		})
+		minusButton[i].addEventListener("click",function(){
+			if (inputBox[i].value > 1){
+				inputBox[i].value = parseInt(inputBox[i].value) - 1
+				totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
+				updateTotal()
+			}
+		})
+	}
+	
+	function updateTotal(){
+		total = 0
+		for (let i=0; i < plusButton.length; i++){
+			total += parseFloat(totalBox[i].textContent)
+		}
+		totalcart.textContent = total.toFixed(2)
+	}
+	
 </script>
+
+{% endblock %}
+
+fetch(url, {
+	method: 'POST'
+	body: ({
+		quantity: x
+		donut: x
+	}
+})
