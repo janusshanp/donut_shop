@@ -61,7 +61,7 @@
 		{% csrf_token %}
 		<input name="date" type="datetime-local" id="id_date" required>
 		<p>Notes</p>
-		<input name="notes" type="text" placeholder="Tell us what you need!">
+		<input id="note" name="notes" type="text" placeholder="Tell us what you need!">
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}
@@ -81,6 +81,8 @@
 	priceBox = document.querySelectorAll('#price');
 	items = document.querySelectorAll('.items');
 	totalcart = document.getElementById('total-cart')
+	custNotes = document.getElementById('note')
+
 
 	for (let i=0; i < totalBox.length; i++){
 		totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
@@ -104,6 +106,11 @@
 			}
 		})
 	}
+
+	custNotes.addEventListener('input', function(){
+		newNote = custNotes.textContent
+		sendNotes(newNote)
+	})
 	
 	function updateTotal(){
 		total = 0
@@ -113,12 +120,19 @@
 		totalcart.textContent = total.toFixed(2)
 	}
 	
-	const BASE_URL = 'http://localhost:8000/cart/quantity/'
+	const Q_URL = 'http://localhost:8000/cart/quantity/'
 
 	async function sendQuantity (amount, donutId, itemId) {
-		url = (`${BASE_URL}${donutId}/${itemId}/${amount}/`)
+		url = (`${Q_URL}${donutId}/${itemId}/${amount}/`)
 		quantity = await fetch(url).then(console.log("hi"))
 	}
+	
+	const NOTES_URL = 'http://localhost:8000/cart/notes/'
+
+	async function sendNotes (notes) {
+		quantity = await fetch(NOTES_URL).then(console.log("hi"))
+	}
+
 	
 </script>
 

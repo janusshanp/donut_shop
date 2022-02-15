@@ -168,4 +168,9 @@ def quantity_update(request, donut_id, item_id, amount_id):
     return response 
 
 
+def add_note(request):
+    print('hi')
+    response = HttpResponse()
+    return response
+
 
