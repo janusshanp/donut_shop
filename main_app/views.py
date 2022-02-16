@@ -195,13 +195,6 @@ def add_note(request):
 
 def daily_flavour(request):
     donuts = Donut.objects.filter(special='True')
-    oddDonuts=[]
-    evenDonuts=[]
-    oddIndexes = range(1, len(donuts), 2)
-    evenIndexes = range(0, len(donuts), 2)
-    for i in oddIndexes:
-        oddDonuts.append(donuts[i])
-    for i in evenIndexes:
-        evenDonuts.append(donuts[i])
-    print(oddDonuts, evenDonuts)
-    return render(request,'daily/index.html', {'donuts': donuts, 'oddDonuts':oddDonuts, 'evenDonuts':evenDonuts, 'oddIndexes':oddIndexes, 'evenIndexes':evenIndexes})
+    oddIndexes = range(1, 10000, 2)
+    evenIndexes = range(0, 10000, 2)
+    return render(request,'daily/index.html', {'donuts': donuts, 'oddIndexes': oddIndexes, 'evenIndexes': evenIndexes})

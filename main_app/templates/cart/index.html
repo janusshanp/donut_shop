@@ -110,12 +110,12 @@
 {% endif %}
 
 <script>
-	{% comment %} var dateEl = document.getElementById('id_date');
-	M.Datepicker.init(dateEl, {
-		defaultDate: new Date(),
-		setDefaultDate: true,
-		autoClose: true
-	});  {% endcomment %}
+	// {% comment %} var dateEl = document.getElementById('id_date');
+	// M.Datepicker.init(dateEl, {
+	// 	defaultDate: new Date(),
+	// 	setDefaultDate: true,
+	// 	autoClose: true
+	// });  {% endcomment %}
 
 	plusButton = document.querySelectorAll('#plus');
 	minusButton = document.querySelectorAll('#minus');
@@ -150,10 +150,10 @@
 		})
 	}
 
-	{% comment %} custNotes.addEventListener('input', function(){
-		newNote = custNotes.textContent
-		sendNotes(newNote)
-	}) {% endcomment %}
+	// {% comment %} custNotes.addEventListener('input', function(){
+	// 	newNote = custNotes.textContent
+	// 	sendNotes(newNote)
+	// }) {% endcomment %}
 
 	function updateTotal(){
 		total = 0
@@ -172,9 +172,9 @@
 
 	const NOTES_URL = 'http://localhost:8000/cart/notes/'
 
-	{% comment %} async function sendNotes (notes) {
-		quantity = await fetch(NOTES_URL).then(console.log("hi"))
-	} {% endcomment %}
+	// {% comment %} async function sendNotes (notes) {
+	// 	quantity = await fetch(NOTES_URL).then(console.log("hi"))
+	// } {% endcomment %}
 </script>
 
 {% endblock %}

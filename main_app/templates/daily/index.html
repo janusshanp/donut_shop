@@ -8,9 +8,8 @@
 		/>
 	</div>
 </div>
-{% for donut in donuts %} {% cycle 'row1' 'row2' as setdisplay silent %}
-
-<div class="row" style='display:"{{setdisplay}}"'>
+{% for donut in donuts %} {% if donut.id in oddIndexes %}
+<div class="row">
 	<div class="col s12 m6">
 		<img class="responsive-img" src="{% static donut.image %}" />
 	</div>
@@ -23,8 +22,8 @@
 		</form>
 	</div>
 </div>
-
-<div class="row" style='display:"{{setdisplay}}"'>
+{% else %}
+<div class="row">
 	<div class="col s12 m6">
 		<span>{{ donut.name }}</span>
 		<p>{{ donut.description }}</p>
@@ -37,4 +36,4 @@
 		<img class="responsive-img" src="{% static donut.image %}" />
 	</div>
 </div>
-{% endfor %}{% endblock %}
+{% endif %} {% endfor %}{% endblock %}
