@@ -2,8 +2,10 @@
 {% load static %}
 
 {% if checkout %}
-	<h2>Your Cart</h2>
-	<a href="{% url 'shop' %}">Continue Shopping</a>
+	<div class="center-align">
+		<h4>Your Cart</h4>
+		<a href="{% url 'shop' %}">Continue Shopping</a>
+	</div>
 {% elif order %}
 	<h4>Thank you for Ordering with us!</h4>
 	<p>Your Order No. is {{order.order_no}}</p>
@@ -16,17 +18,25 @@
 
 <table>
 	<tr>
-		<th>Product</th>
-		<th></th>
-		<th>Price</th>
-		<th>Quantity</th>
-		<th>Total</th>
+		<th style="width:20%">Product</th>
+		<th style="width:35%"></th>
+		<th style="width:15%">Price</th>
+		<th style="width:15%">Quantity</th>
+		<th style="width:15%">Total</th>
 	</tr>
 	{% for item in items %}
 	<tr class ="items" id="{{item.id}}">
 		<td><img class="cart-image" src="{% static item.donut.image %}"/></td>
-		<td>{{item.donut.name}}</td>
-		<td id = "price">{{item.donut.price}}</td>
+		<td>
+			<div class="left-align">
+				{{item.donut.name}}
+				</br>
+				{% if checkout %}
+					<a href = "{% url 'delete_donut' item.donut.id %}">Delete</a>
+				{% endif %}
+			</div>
+		</td>
+		<td>$<span id="price">{{item.donut.price}}</span></td>
 		<td>
 			{% if checkout %}
 				<div class="quantity">
@@ -39,10 +49,7 @@
 
 			{% endif %}				
 		</td>
-		<td id="total"></td>
-	{% if checkout %}
-		<td><a href = "{% url 'delete_donut' item.donut.id %}" class="btn">Delete</a></td>
-	{% endif %}
+		<td>$ <span id="total">{{item.donut.price}}</span></td>
 	</tr>
 	{% endfor %}
 	<tr>
@@ -50,7 +57,7 @@
 		<td></td>
 		<td></td>
 		<td>Subtotal</td>
-		<td id="total-cart"></td>
+		<td>$<span id="total-cart"></span></td>
 	</tr>
 
 </table>
@@ -72,9 +79,22 @@
 {% elif checkout %}
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
-		<input name="date" value="{{cart.date}}"type="datetime-local" id="id_date" required>
-		<p>Notes</p>
-		<input id="note" name="notes" type="text" placeholder="Tell us what you need!">
+		<div class="row">
+			<div class="col s8">
+				<p>Notes to Bakery</p>
+				<input id="note" name="notes" type="text" placeholder="Tell us what will make your day!">
+			</div>
+			<div class="col s4">
+				<div class="delivery">
+					<i class="medium material-icons">local_shipping</i>
+					<p>Local Delivery</p>
+				</div>
+				<div>
+					<p>Choose a date and time</p>
+					<input name="date" value="Choose a date and time"type="datetime-local" id="id_date" required>
+				</div>
+			</div>
+		</div>
 		<button class="btn">Checkout</button>
 	</form>
 {% endif %}

@@ -34,7 +34,7 @@ span {
 }
 
 .cart-image {
-	max-width: 25%;
+	max-width: 80%;
 }
 
 
@@ -99,4 +99,15 @@ span {
 
 body{
 	font-family: 'Montserrat', sans-serif;
+}
+
+table, tr, td{
+	border: none !important;
+}
+
+.delivery{
+	border: 1px solid rgb(201, 193, 193);
+	border-radius: 15%;
+	text-align: center;
+	padding: 10%;
 }
