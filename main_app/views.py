@@ -15,7 +15,8 @@ class DeliveryUpdate(UpdateView):
     fields = '__all__'
 
 def home(request):
-    return render(request, 'home.html')
+    donuts = Donut.objects.all()
+    return render(request, 'home.html', {'donuts': donuts})
 
 @login_required
 def cart_index(request):
@@ -184,7 +185,6 @@ def quantity_update(request, donut_id, item_id, amount_id):
     item.save()
     response = HttpResponse("done")
     return response 
-
 
 def add_note(request):
     pass
