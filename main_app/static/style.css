@@ -1,12 +1,7 @@
 .quantity {
 	display: flex;
 }
-.logo {
-}
-.banner {
-	max-width: 1440px;
-	max-height: 509px;
-}
+
 h1 {
 	text-align: center !important;
 }
@@ -21,5 +16,19 @@ nav {
 }
 
 footer {
-	background-color: white !important;
+	background-color: #bd9780 !important;
+	color: #362b24 !important;
+	padding-top: 85px !important;
+	padding-bottom: 105px;
+}
+
+span {
+	font-weight: bold;
+	font-size: 18px;
+}
+.review-form {
+	width: 507px;
+	height: 143px;
+	align-self: center;
+	align-content: center;
 }

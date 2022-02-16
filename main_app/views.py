@@ -173,4 +173,5 @@ def add_note(request):
     response = HttpResponse()
     return response
 
-
+def daily_flavour(request):
+    return render(request,'daily/index.html')
