@@ -5,8 +5,9 @@
 	<h2>Your Cart</h2>
 	<a href="{% url 'shop' %}">Continue Shopping</a>
 {% elif order %}
-	<h2>Order Complete</h2>
+	<h4>Thank you for Ordering with us!</h4>
 	<p>Your Order No. is {{order.order_no}}</p>
+	<p>Order placed on {{today}} for {{cart.date}}</p>
 {% elif confirm  %}
 	<h2>Review Page</h2>
 	<a href="{% url 'shop' %}">Continue Shopping</a>
@@ -35,6 +36,7 @@
 				</div>
 			{% else %}
 				<input id="{{item.donut.id}}" class="cart-q" type="number" value={{item.quantity}} disabled>
+
 			{% endif %}				
 		</td>
 		<td id="total"></td>
@@ -63,6 +65,7 @@
 		<p>{{address.city}}</p>
 		<p>{{address.postal_code}}</p>
 	</div>
+	<p>Delivery Date: {{cart.date}}</p>
 	<form action="{% url 'cart_complete'%}">
 		<button class="btn">Complete</button>
 	</form>

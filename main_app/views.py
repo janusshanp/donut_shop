@@ -28,8 +28,10 @@ def cart_index(request):
     checkout = True 
     confirm = False
     order = 0
+    today = date.today()
     print(request.path_info)
     if request.path_info == '/cart/review/':
+        print(cart.date)
         confirm = True
         checkout = False
     if request.path_info == '/cart/complete/':
@@ -47,6 +49,7 @@ def cart_index(request):
         order.save()
         cart.donuts.clear()
         cart.date = date.today()
+        cart.save()
     return render(request,'cart/index.html', {
         'cart': cart, 
         'items': user_items,
@@ -54,7 +57,8 @@ def cart_index(request):
         'checkout': checkout,
         'order': order,
         'address': address,
-        'user': user
+        'user': user,
+        'today': today,
     })
 def create_order_no():
     if Order.objects.last():
