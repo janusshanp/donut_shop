@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% block content %}
-{% load static %}
+{% extends 'base.html' %} {% block content %} {% load static %}
 
 <div class="row">
 	<div class="banner col s12">
@@ -8,10 +7,16 @@
 </div>
 <div class="row">
 	<div class="daily-flavour col s12 m6">
-		<img class="responsive-img" src="{% static 'main_app/images/home-daily-flavour.png' %}"/>
+		<img
+			class="responsive-img"
+			src="{% static 'main_app/images/home-daily-flavour.png' %}"
+		/>
 	</div>
 	<div class="rewards col s12 m6">
-		<img class="responsive-img" src="{% static 'main_app/images/rewards.png' %}"/>
+		<img
+			class="responsive-img"
+			src="{% static 'main_app/images/rewards.png' %}"
+		/>
 	</div>
 </div>
 
