@@ -47,7 +47,7 @@
                             <li><a href="{% url 'account_profile' %}">Profile</a></li>
                             <li><a href="{% url 'cart' %}">Cart</a></li>
                             <li><a href="{% url 'shop' %}">Shop</a></li>
-                            <li><a href="">Daily Flavours</a></li>
+                            <li><a href="{% url 'daily_flavour' %}">Daily Flavours</a></li>
                             <li><a href="">About</a></li>
                             <li><a href="">FAQ</a></li>
                         </div>    
@@ -63,14 +63,28 @@
         <footer class="page-footer center-align">
             <div class="container">
                 <div class="row">
-                    <div class="col s4">
-                        <a href="">Address</a>
+                    <div class="footer-info col s4">
+                        <ul>
+                        <span>Address</span>
+                            <li>1234 Markham Road, Scarborough, ON M5M 4A1</li>
+                            <li>Mon - Fri:  9:00AM - 4:00PM</li>
+                        </ul>
                     </div>
-                    <div class="col s4">
-                        <a href="">Contact Us</a>
+                    <div class="footer-info col s4">
+                        <ul>
+                        <span>Contact Us</span>
+                            <li>905-987-7654</li>
+                            <li>email@thedonutshop.ca</li>
+                        </ul>
                     </div>
-                    <div class="col s4">
-                        <a href="">Follow Us</a>
+                    <div class="footer-info col s4">
+                        <ul>
+                        <span>Follow Us</span>
+                            <li>Facebook</li>
+                            <li>Twitter</li>
+                            <li>Instagram</li>
+                            <li>Pinterest</li>
+                        </ul>
                     </div>  
                 </div>
             </div>
