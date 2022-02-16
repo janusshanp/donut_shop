@@ -1,8 +1,10 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
+
 
 <div class="row">
 	<div class="banner col s12">
-		<img class="responsive-img" src="/static/images/daily-flavour-banner.png" />
+		<img class="responsive-img" src="{% static 'main_app/images/daily-flavour-banner.png' %}"/>
 	</div>
 </div>
 
