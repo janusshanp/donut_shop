@@ -22,9 +22,7 @@
 
 <div class="carousel">
 	{% for donut in donuts %}
-	<a class="carousel-item" href="{% url 'detail' donut.id %}"
-		><img src="{% static donut.image %}"
-	/></a>
+		<a class="carousel-item" href="{% url 'detail' donut.id %}"><img src="{% static donut.image %}"/></a>
 	{% endfor %}
 </div>
 

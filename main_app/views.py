@@ -16,7 +16,9 @@ class DeliveryUpdate(UpdateView):
 
 def home(request):
     donuts = Donut.objects.all()
-    return render(request, 'home.html', {'donuts': donuts})
+    return render(request, 'home.html', {
+        'donuts': donuts,
+    })
 
 @login_required
 def cart_index(request):
