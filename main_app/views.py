@@ -141,7 +141,10 @@ def add_donut_cart(request, donut_id):
     donut = Donut.objects.get(id = donut_id)
     cart = Cart.objects.get(user = request.user)
     cart.donuts.add(donut)
-    return redirect('detail', donut_id= donut_id)
+    if donut.special:
+        return redirect('daily_flavour')
+    else:
+        return redirect('detail', donut_id= donut_id)
 
 def delete_donut (request, donut_id):
     donut = Donut.objects.get(id = donut_id)
@@ -191,4 +194,14 @@ def add_note(request):
     # return response
 
 def daily_flavour(request):
-    return render(request,'daily/index.html')
+    donuts = Donut.objects.filter(special='True')
+    oddDonuts=[]
+    evenDonuts=[]
+    oddIndexes = range(1, len(donuts), 2)
+    evenIndexes = range(0, len(donuts), 2)
+    for i in oddIndexes:
+        oddDonuts.append(donuts[i])
+    for i in evenIndexes:
+        evenDonuts.append(donuts[i])
+    print(oddDonuts, evenDonuts)
+    return render(request,'daily/index.html', {'donuts': donuts, 'oddDonuts':oddDonuts, 'evenDonuts':evenDonuts, 'oddIndexes':oddIndexes, 'evenIndexes':evenIndexes})

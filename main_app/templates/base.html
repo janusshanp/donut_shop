@@ -35,10 +35,10 @@
                     </li>
                         <li><a href="{% url 'cart' %}"><i class="medium material-icons">add_shopping_cart</i></a></li>
                         {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        <li><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
                         {% else %}
-                        <li><a href="{% url 'login' %}">Log In</a></li>
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                        <li><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                        <li><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
                         {% endif %} 
                 </ul>
         </div>

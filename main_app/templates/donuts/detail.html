@@ -1,18 +1,16 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
 
-<h1>Donut Detail</h1>
 <div class="row">
 	<div class="col s12 m6">
-		<img src="{% static donut.image %}" />
+		<img class="responsive-img" src="{% static donut.image %}" />
 	</div>
 	<div class="col s12 m6">
 		<span>{{ donut.name }}</span>
-			<p>Price: {{ donut.price }}</p>
-			<p>Description: {{ donut.description }}</p>
+			<p>{{ donut.description }}</p>
 		<form action="{% url 'add_cart' donut.id %}" method="post">
 			{% csrf_token %}
-			<input type="submit" class="btn" value="Add to cart" />
+			<input type="submit" class="btn" value="Add {{ donut.price }}" />
 		</form>
 	</div>
 </div>

@@ -1,11 +1,40 @@
-{% extends 'base.html' %} {% block content %}
-{% load static %}
-
+{% extends 'base.html' %} {% block content %} {% load static %}
 
 <div class="row">
 	<div class="banner col s12">
-		<img class="responsive-img" src="{% static 'main_app/images/daily-flavour-banner.png' %}"/>
+		<img
+			class="responsive-img"
+			src="{% static 'main_app/images/daily-flavour-banner.png' %}"
+		/>
+	</div>
+</div>
+{% for donut in donuts %} {% cycle 'row1' 'row2' as setdisplay silent %}
+
+<div class="row" style='display:"{{setdisplay}}"'>
+	<div class="col s12 m6">
+		<img class="responsive-img" src="{% static donut.image %}" />
+	</div>
+	<div class="col s12 m6">
+		<span>{{ donut.name }}</span>
+		<p>{{ donut.description }}</p>
+		<form action="{% url 'add_cart' donut.id %}" method="post">
+			{% csrf_token %}
+			<input type="submit" class="btn" value="Add {{ donut.price }}" />
+		</form>
 	</div>
 </div>
 
-{% endblock %}
+<div class="row" style='display:"{{setdisplay}}"'>
+	<div class="col s12 m6">
+		<span>{{ donut.name }}</span>
+		<p>{{ donut.description }}</p>
+		<form action="{% url 'add_cart' donut.id %}" method="post">
+			{% csrf_token %}
+			<input type="submit" class="btn" value="Add {{ donut.price }}" />
+		</form>
+	</div>
+	<div class="col s12 m6">
+		<img class="responsive-img" src="{% static donut.image %}" />
+	</div>
+</div>
+{% endfor %}{% endblock %}

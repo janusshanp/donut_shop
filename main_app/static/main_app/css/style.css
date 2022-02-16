@@ -1,3 +1,7 @@
+body{
+	font-family: 'Montserrat', sans-serif;
+}
+
 .quantity {
 	display: flex;
 }
@@ -14,6 +18,10 @@ nav {
 	box-shadow: none !important;
 	padding-bottom: 90px;
 }
+nav li {
+	display: inline
+	padding-right: 10px !important;
+}
 
 footer {
 	background-color: #bd9780 !important;
@@ -29,76 +37,10 @@ span {
 .review-form {
 	width: 507px;
 	height: 143px;
-	align-self: center;
-	align-content: center;
 }
 
 .cart-image {
 	max-width: 80%;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-body{
-	font-family: 'Montserrat', sans-serif;
 }
 
 table, tr, td{
