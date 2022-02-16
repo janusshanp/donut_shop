@@ -23,7 +23,7 @@ def cart_index(request):
     cart = Cart.objects.get(user = user)
     user_items = cart.itemcart_set.all()
     profile = Profile.objects.get(user = user)
-    address = Delivery_Address.objects.get(profile = profile)
+    address = ''
     print(address)
     checkout = True 
     confirm = False
@@ -31,10 +31,12 @@ def cart_index(request):
     today = date.today()
     print(request.path_info)
     if request.path_info == '/cart/review/':
+        address = Delivery_Address.objects.get(profile = profile)
         print(cart.date)
         confirm = True
         checkout = False
     if request.path_info == '/cart/complete/':
+        address = Delivery_Address.objects.get(profile = profile)
         checkout = False 
         num = create_order_no()
         order = Order(
