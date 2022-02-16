@@ -1,17 +1,14 @@
-{% extends 'base.html' %} {% block content %}
-{% load static %}
-
-{% if checkout %}
-	<h2>Your Cart</h2>
-	<a href="{% url 'shop' %}">Continue Shopping</a>
+{% extends 'base.html' %} {% block content %} {% load static %} {%if checkout%}
+<h2>Your Cart</h2>
+<a href="{% url 'shop' %}">Continue Shopping</a>
 {% elif order %}
-	<h4>Thank you for Ordering with us!</h4>
-	<p>Your Order No. is {{order.order_no}}</p>
-	<p>Order placed on {{today}} for {{cart.date}}</p>
-{% elif confirm  %}
-	<h2>Review Page</h2>
-	<a href="{% url 'shop' %}">Continue Shopping</a>
-	<a href="{% url 'cart' %}">Edit Cart</a>
+<h4>Thank you for Ordering with us!</h4>
+<p>Your Order No. is {{order.order_no}}</p>
+<p>Order placed on {{today}} for {{cart.date}}</p>
+{% elif confirm %}
+<h2>Review Page</h2>
+<a href="{% url 'shop' %}">Continue Shopping</a>
+<a href="{% url 'cart' %}">Edit Cart</a>
 {% endif %}
 
 <table>
@@ -23,26 +20,39 @@
 		<th>Total</th>
 	</tr>
 	{% for item in items %}
-	<tr class ="items" id="{{item.id}}">
-		<td><img class="cart-image" src="{% static item.donut.image %}"/></td>
+	<tr class="items" id="{{item.id}}">
+		<td><img class="cart-image" src="{% static item.donut.image %}" /></td>
 		<td>{{item.donut.name}}</td>
-		<td id = "price">{{item.donut.price}}</td>
+		<td id="price">{{item.donut.price}}</td>
 		<td>
 			{% if checkout %}
-				<div class="quantity">
-					<button id="minus">-</button>
-					<input id="{{item.donut.id}}" class="cart-q" type="number" value={{item.quantity}}>
-					<button id="plus">+</button>
-				</div>
+			<div class="quantity">
+				<button id="minus">-</button>
+				<input
+					id="{{item.donut.id}}"
+					class="cart-q"
+					type="number"
+					value="{{item.quantity}}"
+				/>
+				<button id="plus">+</button>
+			</div>
 			{% else %}
-				<input id="{{item.donut.id}}" class="cart-q" type="number" value={{item.quantity}} disabled>
+			<input
+				id="{{item.donut.id}}"
+				class="cart-q"
+				type="number"
+				value="{{item.quantity}}"
+				disabled
+			/>
 
-			{% endif %}				
+			{% endif %}
 		</td>
 		<td id="total"></td>
-	{% if checkout %}
-		<td><a href = "{% url 'delete_donut' item.donut.id %}" class="btn">Delete</a></td>
-	{% endif %}
+		{% if checkout %}
+		<td>
+			<a href="{% url 'delete_donut' item.donut.id %}" class="btn">Delete</a>
+		</td>
+		{% endif %}
 	</tr>
 	{% endfor %}
 	<tr>
@@ -52,31 +62,41 @@
 		<td>Subtotal</td>
 		<td id="total-cart"></td>
 	</tr>
-
 </table>
 
 {% if confirm %}
-	<input type="text" value={{cart.notes}} disabled>
-	<div>
-		<a href="/cart/">Edit</a>
-		<p>{{user.first_name}} {{user.last_name}}</p>
-		<p>{{address.email}}</p>
-		<p>{{address.address}}</p>
-		<p>{{address.city}}</p>
-		<p>{{address.postal_code}}</p>
-	</div>
-	<p>Delivery Date: {{cart.date}}</p>
-	<form action="{% url 'cart_complete'%}">
-		<button class="btn">Complete</button>
-	</form>
+<input type="text" value="{{cart.notes}}" disabled />
+<div>
+	<a href="/cart/">Edit</a>
+	<p>{{user.first_name}} {{user.last_name}}</p>
+	<p>{{address.email}}</p>
+	<p>{{address.address}}</p>
+	<p>{{address.city}}</p>
+	<p>{{address.postal_code}}</p>
+</div>
+<p>Delivery Date: {{cart.date}}</p>
+<form action="{% url 'cart_complete'%}">
+	<button class="btn">Complete</button>
+</form>
 {% elif checkout %}
-	<form action="{% url 'payment'%}" method="post">
-		{% csrf_token %}
-		<input name="date" value="{{cart.date}}"type="datetime-local" id="id_date" required>
-		<p>Notes</p>
-		<input id="note" name="notes" type="text" placeholder="Tell us what you need!">
-		<button class="btn">Checkout</button>
-	</form>
+<form action="{% url 'payment'%}" method="post">
+	{% csrf_token %}
+	<input
+		name="date"
+		value="{{cart.date}}"
+		type="datetime-local"
+		id="id_date"
+		required
+	/>
+	<p>Notes</p>
+	<input
+		id="note"
+		name="notes"
+		type="text"
+		placeholder="Tell us what you need!"
+	/>
+	<button class="btn">Checkout</button>
+</form>
 {% endif %}
 
 <script>
@@ -86,7 +106,7 @@
 		setDefaultDate: true,
 		autoClose: true
 	});  {% endcomment %}
-	
+
 	plusButton = document.querySelectorAll('#plus');
 	minusButton = document.querySelectorAll('#minus');
 	inputBox = document.querySelectorAll('.cart-q');
@@ -102,7 +122,7 @@
 	}
 
 	updateTotal()
-	
+
 	for (let i=0; i < plusButton.length; i++){
 		plusButton[i].addEventListener("click",function(){
 			inputBox[i].value = parseInt(inputBox[i].value) + 1
@@ -124,7 +144,7 @@
 		newNote = custNotes.textContent
 		sendNotes(newNote)
 	}) {% endcomment %}
-	
+
 	function updateTotal(){
 		total = 0
 		for (let i=0; i < totalBox.length; i++){
@@ -132,21 +152,19 @@
 		}
 		totalcart.textContent = total.toFixed(2)
 	}
-	
+
 	const Q_URL = 'http://localhost:8000/cart/quantity/'
 
 	async function sendQuantity (amount, donutId, itemId) {
 		url = (`${Q_URL}${donutId}/${itemId}/${amount}/`)
 		quantity = await fetch(url).then(console.log("hi"))
 	}
-	
+
 	const NOTES_URL = 'http://localhost:8000/cart/notes/'
 
 	{% comment %} async function sendNotes (notes) {
 		quantity = await fetch(NOTES_URL).then(console.log("hi"))
 	} {% endcomment %}
-
-	
 </script>
 
 {% endblock %}
