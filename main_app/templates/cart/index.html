@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
 
 {% if checkout %}
 	<h2>Your Cart</h2>
@@ -22,7 +23,7 @@
 	</tr>
 	{% for item in items %}
 	<tr class ="items" id="{{item.id}}">
-		<td><img src="{{item.donut.image}}" /></td>
+		<td><img class="cart-image" src="{% static item.donut.image %}"/></td>
 		<td>{{item.donut.name}}</td>
 		<td id = "price">{{item.donut.price}}</td>
 		<td>
@@ -53,13 +54,22 @@
 </table>
 
 {% if confirm %}
+	<input type="text" value={{cart.notes}} disabled>
+	<div>
+		<a href="/cart/">Edit</a>
+		<p>{{user.first_name}} {{user.last_name}}</p>
+		<p>{{address.email}}</p>
+		<p>{{address.address}}</p>
+		<p>{{address.city}}</p>
+		<p>{{address.postal_code}}</p>
+	</div>
 	<form action="{% url 'cart_complete'%}">
 		<button class="btn">Complete</button>
 	</form>
 {% elif checkout %}
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
-		<input name="date" type="datetime-local" id="id_date" required>
+		<input name="date" value="{{cart.date}}"type="datetime-local" id="id_date" required>
 		<p>Notes</p>
 		<input id="note" name="notes" type="text" placeholder="Tell us what you need!">
 		<button class="btn">Checkout</button>
@@ -107,10 +117,10 @@
 		})
 	}
 
-	custNotes.addEventListener('input', function(){
+	{% comment %} custNotes.addEventListener('input', function(){
 		newNote = custNotes.textContent
 		sendNotes(newNote)
-	})
+	}) {% endcomment %}
 	
 	function updateTotal(){
 		total = 0
@@ -129,9 +139,9 @@
 	
 	const NOTES_URL = 'http://localhost:8000/cart/notes/'
 
-	async function sendNotes (notes) {
+	{% comment %} async function sendNotes (notes) {
 		quantity = await fetch(NOTES_URL).then(console.log("hi"))
-	}
+	} {% endcomment %}
 
 	
 </script>

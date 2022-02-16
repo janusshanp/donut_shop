@@ -1,4 +1,6 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
+
 <div class="row">
 	<div class="col s9">
 		<form method="POST" action="{% url 'add_info' %}">
@@ -12,7 +14,7 @@
 		<table>
 			{% for item in items %}
 			<tr>
-				<td><img src="{{item.donut.image}}"></td>
+				<td><img class="cart-image" src="{% static item.donut.image %}"></td>
 				<td>{{item.donut.name}}</td>
 				<td class="price">{{item.donut.price}}</td>
 				<td class="quantity">{{item.quantity}}</td>

@@ -23,3 +23,8 @@ nav {
 footer {
 	background-color: white !important;
 }
+
+.cart-image {
+	max-width: 25%;
+}
+

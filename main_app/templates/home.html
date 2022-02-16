@@ -1,16 +1,17 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
 
 <div class="row">
 	<div class="banner col s12">
-		<img class="responsive-img" src="static/images/banner.png" />
+		<img class="responsive-img" src="{% static 'main_app/images/banner.png' %}" />
 	</div>
 </div>
 <div class="row">
 	<div class="daily-flavour col s12 m6">
-		<img class="responsive-img" src="static/images/home-daily-flavour.png" />
+		<img class="responsive-img" src="{% static 'main_app/images/home-daily-flavour.png' %}"/>
 	</div>
 	<div class="rewards col s12 m6">
-		<img class="responsive-img" src="static/images/rewards.png" />
+		<img class="responsive-img" src="{% static 'main_app/images/rewards.png' %}"/>
 	</div>
 </div>
 
@@ -18,7 +19,7 @@
 
 <div class="row">
 	<div class="about col s12 m6">
-		<img class="responsive-img" src="static/images/about.png" />
+		<img class="responsive-img" src="{% static 'main_app/images/about.png' %}" />
 	</div>
 	<div class="about-text">
 		<h3>We are pretty a-glaze-ing</h3>

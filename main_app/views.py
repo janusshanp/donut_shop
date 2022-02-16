@@ -19,8 +19,12 @@ def home(request):
 
 @login_required
 def cart_index(request):
-    cart = Cart.objects.get(user = request.user)
+    user = request.user
+    cart = Cart.objects.get(user = user)
     user_items = cart.itemcart_set.all()
+    profile = Profile.objects.get(user = user)
+    address = Delivery_Address.objects.get(profile = profile)
+    print(address)
     checkout = True 
     confirm = False
     order = 0
@@ -48,7 +52,9 @@ def cart_index(request):
         'items': user_items,
         'confirm': confirm,
         'checkout': checkout,
-        'order': order
+        'order': order,
+        'address': address,
+        'user': user
     })
 def create_order_no():
     if Order.objects.last():
@@ -62,6 +68,7 @@ def create_order_no():
 def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
     cart.date = request.POST['date']
+    cart.notes = request.POST['notes']
     cart.save()
     user_items = cart.itemcart_set.all()
     if request.user.profile_set.first().delivery_address_set.first():
@@ -169,8 +176,10 @@ def quantity_update(request, donut_id, item_id, amount_id):
 
 
 def add_note(request):
-    print('hi')
-    response = HttpResponse()
-    return response
+    pass
+    # cart = Cart.objects.get(user = request.user)
+    # cart.notes = request.
+    # response = HttpResponse()
+    # return response
 
 
