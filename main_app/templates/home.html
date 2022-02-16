@@ -19,7 +19,8 @@
 		/>
 	</div>
 </div>
-<div class="carousel carousel-slider">
+
+<div class="carousel">
 	{% for donut in donuts %}
 	<a class="carousel-item" href="{% url 'detail' donut.id %}"
 		><img src="{% static donut.image %}"
@@ -40,12 +41,12 @@
 		</p>
 	</div>
 </div>
+
 <script>
 	let carousel = document.querySelector(".carousel");
-	console.log(carousel);
-
 	M.Carousel.init(carousel, {
 		fullWidth: true,
 	});
 </script>
+
 {% endblock %}
