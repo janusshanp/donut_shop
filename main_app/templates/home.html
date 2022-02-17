@@ -1,22 +1,16 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-
-<div class="row">
-	<div class="col s12">
-		<img
-			class="banner responsive-img"
-			src="{% static 'main_app/images/banner.png' %}"
-		/>
-	</div>
+<div class="home-banner">
+	<img class="banner" src="{% static 'main_app/images/banner.png' %}" />
 </div>
 <div class="container">
 	<div class="row">
-		<div class="daily-flavour col s12 m6">
+		<div class="daily-flavour col s6">
 			<img
 				class="responsive-img"
 				src="{% static 'main_app/images/home-daily-flavours.png' %}"
 			/>
 		</div>
-		<div class="rewards col s12 m6">
+		<div class="rewards col s6">
 			<img
 				class="responsive-img"
 				src="{% static 'main_app/images/rewards.png' %}"
@@ -24,21 +18,26 @@
 		</div>
 	</div>
 	<h4>Bestsellers of the week</h4>
-	<div class="carousel">
-		{% for donut in donuts %}
-		<a class="carousel-item" href="{% url 'detail' donut.id %}"
-			><img src="{% static donut.image %}"
-		/></a>
-		{% endfor %}
+	<div class="row">
+		<div class="col s12">
+			<div class="carousel">
+				{% for donut in donuts %}
+				<a class="carousel-item" href="{% url 'detail' donut.id %}"
+					><img src="{% static donut.image %}"
+				/></a>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
 
-	<div class="row">
-		<div class="about col s12 m6">
+	<div class="row home-row">
+		<div class="about col s12">
 			<img class="responsive-img" src="{% static 'main_app/images/about.png' %}" />
 		</div>
-		<div class="about-text">
-			<h4>We are pretty a-glaze-ing</h4>
+		<div class="valign-wrapper">
 			<p>
+				<span>We are pretty a-glaze-ing</span>
+				<br />
 				We’ve been passionate about baking since ‘08. Dough is about more than just
 				creating donuts, we are passionate about reinventing the dessert scene and
 				creating an experience for our customers. We want each donut to tell a

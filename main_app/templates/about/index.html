@@ -1,6 +1,51 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<img src="{% static 'main_app/images/entrance.png'%}" />
-<img src="{% static 'main_app/images/toronto.png'%}" />
-<img src="{% static 'main_app/images/quality.png'%}" />
-<img src="{% static 'main_app/images/health.png'%}" />
-{% endblock %}
+<div class="about-banner">
+	<img class="banner" src="{% static 'main_app/images/about-banner.png' %}" />
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col s6">
+			<img class="responsive-img"src="{% static 'main_app/images/entrance.png' %}" />
+		</div>	
+			<div class="col s6">
+				<span>Our Entrance into the Donut World</span>
+				Since dough (day) 1 we’ve been passionate about donuts. Dough is more than
+				about creating donuts, it’s about reinventing the dessert scene and creating
+				an experience for our customers. We want each donut to tell their dough
+				story.
+			</div>
+	</div>	
+		<div class="row">
+			<div class="col s4">
+				<img
+					class="responsive-img"
+					src="{% static 'main_app/images/toronto.png'%}"
+				/>
+			</div>
+			<div class="col s8">
+				<p>Authentically Torontonian</p>
+				<p>Born and raised in Toronto, dough founders were inspired by the culinary scene in the diverse city. They dedicated their craft to showcase what it means to be a baker in Toronto and vowed to put themselves on the map, and in their customers stomach.</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s4">
+				<img class="responsive-img"src="{% static 'main_app/images/quality.png'%}" />
+			</div>
+			<div class="col s8">
+				<p>Top Quality Ingredients</p>
+				<p>Our bakers value top ingredients, and searched high and low to find Canadian local ingrediants to support the market and to create beautiful flavour profiles. They value the four seasons in the country, and always researching to find what is in season and how they can translate farm to table desserts. </p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s4">
+				<img class="responsive-img"src="{% static 'main_app/images/health.png'%}" />
+			</div>
+			<div class="col s8">
+				<p>Our Health and Safety Guidelines</p>
+				<p>From our front line to our kitchen, dough ensures that all food and beverage health safety protocols are met. Ontario Food Premises Regulations are taken seriously in addition to keeping a pass on our inspection Notice by Toronto Public health </p>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</div>
