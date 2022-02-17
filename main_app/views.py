@@ -202,3 +202,11 @@ def daily_flavour(request):
     oddIndexes = range(1, 10000, 2)
     evenIndexes = range(0, 10000, 2)
     return render(request,'daily/index.html', {'donuts': donuts, 'oddIndexes': oddIndexes, 'evenIndexes': evenIndexes})
+
+def search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        donuts = Donut.objects.filter(name__contains=searched)
+        return render(request, 'search.html', {'searched': searched, 'donuts': donuts })
+    else:
+        return render(request, 'search.html')

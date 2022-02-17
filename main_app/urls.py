@@ -17,5 +17,6 @@ urlpatterns = [
     path('cart/payment/info/', views.add_info, name= "add_info"),
     path('cart/review/',views.cart_index, name="cart_review"),
     path('cart/complete/', views.cart_index, name="cart_complete"),
-    path('daily/', views.daily_flavour, name="daily_flavour")
+    path('daily/', views.daily_flavour, name="daily_flavour"),
+    path('search/', views.search, name ="search"),
 ]
