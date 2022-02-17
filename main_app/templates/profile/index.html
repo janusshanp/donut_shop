@@ -1,14 +1,38 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="container">
+	<h4 class="center account">My Account</h4>
+	<div class="row">
+		<div class="col s9">
+			<span>Order History</span>
+			<table>
+				<th>Order</th>
+				<th>Date</th>
+				<th>Payment Status</th>
+				<th>Total</th>
+				{% for order in orders %}
+				<tr>
+					<td>{{order.order_no}}</td>
+					<td>{{order.delivery_date}}</td>
+					{% endfor %}
+				</tr>
+			</table>
+		</div>
+		<div class="col s3">
+			<span>Account Details</span>
+			<p>
+				{{user.first_name}} {{user.last_name}}<br />
+				{{delivery_address.address}} {{delivery_address.apartment}}
+				{{delivery_address.city}} {{delivery_address.country}}
+				{{delivery_address.Province}} {{delivery_address.postal_code}}
+			</p>
+			<a href="{% url 'delivery_update' delivery_address.id %}">Change</a>
+		</div>
+	</div>
+	<span>Reward Balance</span>
 
-<h1>{{user}}'s Account Settings</h1>
-<table>
-    <th>Order</th>
-    <th>Date</th>
-    <th>Total</th>
-{% for order in orders %}
-<tr>
-    <td>{{order.order_no}}</td>
-    <td>{{order.ordered_date}}</td>
-{% endfor %}    
-</table>
+	<div class="row">
+		<img class="responsive-img" src="{% static 'main_app/images/gold.png' %}" />
+		<p class="right">Swweet! You are a Dough Gold Member!</p>
+	</div>
+</div>
 {% endblock %}

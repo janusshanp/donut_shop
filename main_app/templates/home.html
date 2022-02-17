@@ -1,47 +1,52 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 
 <div class="row">
-	<div class="banner col s12">
-		<img class="responsive-img" src="{% static 'main_app/images/banner.png' %}" />
-	</div>
-</div>
-<div class="row">
-	<div class="daily-flavour col s12 m6">
+	<div class="col s12">
 		<img
-			class="responsive-img"
-			src="{% static 'main_app/images/home-daily-flavours.png' %}"
-		/>
-	</div>
-	<div class="rewards col s12 m6">
-		<img
-			class="responsive-img"
-			src="{% static 'main_app/images/rewards.png' %}"
+			class="banner responsive-img"
+			src="{% static 'main_app/images/banner.png' %}"
 		/>
 	</div>
 </div>
-<h4>Bestsellers of the week</h4>
-<div class="carousel">
-	{% for donut in donuts %}
-	<a class="carousel-item" href="{% url 'detail' donut.id %}"
-		><img src="{% static donut.image %}"
-	/></a>
-	{% endfor %}
-</div>
-
-<div class="row">
-	<div class="about col s12 m6">
-		<img class="responsive-img" src="{% static 'main_app/images/about.png' %}" />
+<div class="container">
+	<div class="row">
+		<div class="daily-flavour col s12 m6">
+			<img
+				class="responsive-img"
+				src="{% static 'main_app/images/home-daily-flavours.png' %}"
+			/>
+		</div>
+		<div class="rewards col s12 m6">
+			<img
+				class="responsive-img"
+				src="{% static 'main_app/images/rewards.png' %}"
+			/>
+		</div>
 	</div>
-	<div class="about-text">
-		<h4>We are pretty a-glaze-ing</h4>
-		<p>
-			We’ve been passionate about baking since ‘08. Dough is about more than just
-			creating donuts, we are passionate about reinventing the dessert scene and
-			creating an experience for our customers. We want each donut to tell a story.
-		</p>
+	<h4>Bestsellers of the week</h4>
+	<div class="carousel">
+		{% for donut in donuts %}
+		<a class="carousel-item" href="{% url 'detail' donut.id %}"
+			><img src="{% static donut.image %}"
+		/></a>
+		{% endfor %}
+	</div>
+
+	<div class="row">
+		<div class="about col s12 m6">
+			<img class="responsive-img" src="{% static 'main_app/images/about.png' %}" />
+		</div>
+		<div class="about-text">
+			<h4>We are pretty a-glaze-ing</h4>
+			<p>
+				We’ve been passionate about baking since ‘08. Dough is about more than just
+				creating donuts, we are passionate about reinventing the dessert scene and
+				creating an experience for our customers. We want each donut to tell a
+				story.
+			</p>
+		</div>
 	</div>
 </div>
-
 <script>
 	let carousel = document.querySelector(".carousel");
 	M.Carousel.init(carousel, {
