@@ -123,3 +123,32 @@ h4{
 	margin: 30px;
 	justify-content: center;
 }
+
+.underline {
+	text-decoration: underline;
+}
+
+.top-left {
+	text-align: left;
+	vertical-align:top;
+}
+
+.cart-delete {
+	margin-top: 50px;
+}
+
+.cart-q {
+	text-align: center;
+	border: none !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity button{
+	width: 50%;
+}
+
