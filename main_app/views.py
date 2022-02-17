@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .forms import DeliveryForm
+from .forms import DeliveryForm, UserForm
 from datetime import date 
 from .models import *
 
@@ -141,7 +141,8 @@ def donuts_index(request):
 def donut_detail(request, donut_id):
     donut = Donut.objects.get(id=donut_id)
     return render(request, 'donuts/detail.html',{'donut': donut})
-    
+
+@login_required    
 def add_donut_cart(request, donut_id):
     donut = Donut.objects.get(id = donut_id)
     cart = Cart.objects.get(user = request.user)
@@ -170,7 +171,7 @@ def add_review(request, donut_id):
 def signup(request):
   error_message = ''
   if request.method == 'POST':
-    form = UserCreationForm(request.POST)
+    form = UserForm(request.POST)
     if form.is_valid():
       user = form.save()
       login(request, user)
@@ -179,7 +180,7 @@ def signup(request):
       return redirect('home')
     else:
       error_message = 'Invalid sign up - try again'
-  form = UserCreationForm()
+  form = UserForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
