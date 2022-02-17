@@ -159,11 +159,11 @@ def delete_donut (request, donut_id):
     return redirect('cart')
 
 def add_review(request, donut_id):
-    comment =request.POST['review_text']
     donuts = Donut.objects.get(id=donut_id)
+    print(request.POST)
     Review.objects.create(
-        content=comment, 
-        rating=0, 
+        content= request.POST['review_text'], 
+        rating= request.POST['rating'], 
         donuts=donuts, 
         user=request.user)
     return redirect('detail', donut_id=donut_id)

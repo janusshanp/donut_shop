@@ -8,30 +8,86 @@
 	<div class="col s12 m6">
 		<span>{{ donut.name }}</span>
 			<p>{{ donut.description }}</p>
-		<form action="{% url 'add_cart' donut.id %}" method="post">
+		<form class="center-align" action="{% url 'add_cart' donut.id %}" method="post">
 			{% csrf_token %}
-			<input type="submit" class="btn" value="Add {{ donut.price }}" />
+			<input type="submit" class="btn-large" value="Add to Cart" />
 		</form>
 	</div>
 </div>
+
 <div class="row">
+	<h4>Reviews</h4>
+	<h6>Let us know how you feel!</h6>
 	<div class="col s12">
 		<table>
-				<tr>
+			<tr>
 				{% for review in donut.review_set.all %}
 				<td>{{review.user}}<br>{{review.rating}}</td>
 				<td>{{review.content}}</td>
-				</tr>			
-				{% endfor %}
+			</tr>			
+			{% endfor %}
 		</table>
 	</div>
-		<div class="col s12">
-			<form class="review-form" action="{% url 'add_review' donut.id %}" method="post">
-				{% csrf_token %}
-				<input type="text" name="review_text" />
-				<button type="submit" class="btn">Add Review</button>
-			</form>
-		</div>
-	</div>	
+	<div class="col s12">
+		<form class="review-form" action="{% url 'add_review' donut.id %}" method="post">
+			{% csrf_token %}
+			<input type="text" name="review_text" />
+			<div class="star-wrapper">
+				<div class="fas fa-star s1 star"></div>
+				<div class="fas fa-star s2 star"></div>
+				<div class="fas fa-star s3 star"></div>
+				<div class="fas fa-star s4 star"></div>
+				<div class="fas fa-star s5 star"></div>
+				<input type="hidden" id="rating" name="rating"/>
+			</div>
+			<button type="submit" class="btn">Add Review</button>
+		</form>
+	</div>
 </div>
+
+<script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+<script>
+	stars = document.querySelectorAll('.star');
+	inputEl = document.getElementById('rating')
+
+	for (let i=0; i < stars.length; i++){
+		stars[i].addEventListener("click",function(e){
+			if (e.target.classList.contains('s5')){
+				console.log(e.target)
+				inputEl.value = '1'
+				updatColors(parseInt(inputEl.value))
+			}
+			else if (e.target.classList.contains('s4')){
+				console.log(e.target)
+				inputEl.value = '2'
+				updatColors(parseInt(inputEl.value))
+			} 
+			else if (e.target.classList.contains('s3')){
+				console.log(e.target)
+				inputEl.value = '3'
+				updatColors(parseInt(inputEl.value))
+			} 
+			else if (e.target.classList.contains('s2')){
+				console.log(e.target)
+				inputEl.value = '4'
+				updatColors(parseInt(inputEl.value))
+			} 
+			else if (e.target.classList.contains('s1')){
+				console.log(e.target)
+				inputEl.value = '5'
+				updatColors(parseInt(inputEl.value))
+			}  
+		})
+	}
+
+	function updatColors(value){
+		for (let i=0; i < value; i++){
+			stars[4-i].style.color = 'gold'
+		}
+	}
+
+</script>
+
 {% endblock %}
+
+
