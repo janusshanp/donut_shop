@@ -1,4 +1,14 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<h1>FAQ page</h1>
+<div class="faq-banner">
+	<img class="banner" src="{% static 'main_app/images/faqbanner.png' %}" />
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col s4">
+			<span>What are you hours?</span><br />
+			<p>Donut worry we are open Monday to Sunday from 9:00 am to 4:00pm!</p>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

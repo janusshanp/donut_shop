@@ -1,13 +1,9 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+<div class="daily-banner">
+	<img class="banner" src="{% static 'main_app/images/daily-banner.png' %}" />
+</div>
+
 <div class="container">
-	<div class="row">
-		<div class="banner col s12">
-			<img
-				class="responsive-img"
-				src="{% static 'main_app/images/daily-flavour-banner.png' %}"
-			/>
-		</div>
-	</div>
 	{% for donut in donuts %} {% if donut.id in oddIndexes %}
 	<div class="row">
 		<div class="col s12 m6">
