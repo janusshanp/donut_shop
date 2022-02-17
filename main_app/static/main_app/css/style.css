@@ -1,15 +1,16 @@
 body {
 	font-family: "Montserrat", sans-serif;
 }
-
+h4.center.account {
+	padding-bottom: 90px !important;
+}
 .quantity {
 	display: flex;
 }
-/* 
-.carousel a img {
-	width: 20%;
-} */
-
+.banner {
+	max-height: 709px;
+	width: 100vw;
+}
 h1 {
 	text-align: center !important;
 }
@@ -61,20 +62,19 @@ td {
 	padding: 10%;
 }
 
-h4{
+h4 {
 	text-align: center;
 }
 
 .auth {
 	width: 100%;
-
 }
 
-.helptext{
+.helptext {
 	font-size: 10px;
 }
 
-#signup-btn{
+#signup-btn {
 	display: flex;
 	margin: 30px;
 	justify-content: center;
@@ -86,7 +86,7 @@ h4{
 
 .top-left {
 	text-align: left;
-	vertical-align:top;
+	vertical-align: top;
 }
 
 .cart-delete {
@@ -100,11 +100,11 @@ h4{
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-.quantity button{
+.quantity button {
 	width: 50%;
 }
 

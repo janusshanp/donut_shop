@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 CHOICES = (
@@ -86,3 +87,6 @@ class Delivery_Address(models.Model):
 
     def __str__(self):
         return f"{self.profile}'s Delivery Address" 
+        
+    def get_absolute_url(self):
+        return reverse('account_profile')

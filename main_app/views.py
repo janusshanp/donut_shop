@@ -12,7 +12,8 @@ from .models import *
 # Create your views here.
 class DeliveryUpdate(UpdateView):
     model = Delivery_Address
-    fields = '__all__'
+    fields = ['address', 'apartment','city','country','Province', 'postal_code']
+
 
 def home(request):
     donuts = Donut.objects.all()
@@ -103,8 +104,10 @@ def cart_payment(request):
 @login_required
 def account_profile(request):
     orders = request.user.order_set.all()
-    print(orders)
-    return render(request, 'profile/index.html', {'orders': orders})
+    profile=Profile.objects.get(user=request.user)
+    delivery_address=Delivery_Address.objects.get(profile=profile)
+    print()
+    return render(request, 'profile/index.html', {'orders': orders, 'profile':profile,'delivery_address': delivery_address})
 
 @login_required
 def add_info(request):
