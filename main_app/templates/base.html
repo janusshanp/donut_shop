@@ -17,9 +17,9 @@
 </head>
 <body>
     <nav role="navigation">
-        <div class="nav-wrapper">
-            <a href="/" class="brand-logo center"><img class="responsive-img logo"src="{% static 'main_app/images/logo.png' %}"></a>
-                <ul class="right hide-on-med-and-down">
+        <div class="nav-wrapper logo">
+            <a href="/" class="brand-logo center"><img class="logo"src="{% static 'main_app/images/logo.png' %}"></a>
+                <ul class="right">
                     <li> 
                         <form method="POST" action = "{% url 'search' %}">
                             {% csrf_token %}
@@ -42,18 +42,14 @@
         </div>
     </nav>  
     <header>
-        <nav role="sub-navigation">
-            <div class="brand-logo center">
-                    <ul class="nav">
-                        <div class="row center-align">  
-                            <li><a href="{% url 'shop' %}">Shop</a></li>
-                            <li><a href="{% url 'daily_flavour' %}">Daily Flavours</a></li>
-                            <li><a href="{% url 'about' %}">About</a></li>
-                            <li><a href="{% url 'faq' %}">FAQ</a></li>
-                            <li><a href="{% url 'rewards' %}">Rewards</a></li>
-                        </div>    
-                    <ul>
-            </div> 
+        <nav class="nav-center" role="navigation">
+            <ul>
+                <li><a href="{% url 'shop' %}">Shop</a></li>
+                <li><a href="{% url 'daily_flavour' %}">Daily Flavours</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'rewards' %}">Rewards</a></li>
+            <ul> 
         </nav>
     </header>       
             {% block content %}
