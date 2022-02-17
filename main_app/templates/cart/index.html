@@ -12,8 +12,8 @@
 <p>Your Order No. is {{order.order_no}}</p>
 <p>Order placed on {{today}} for {{cart.date}}</p>
 {% elif confirm %}
-<h2>Review Page</h2>
-<a class="underline" href="{% url 'shop' %}">Continue Shopping</a>
+<h5>Please review your order</h5>
+<a class="underline" href="{% url 'shop' %}">Continue Shopping</a><br>
 <a class="underline" href="{% url 'cart' %}">Edit Cart</a>
 {% endif %}
 
@@ -75,12 +75,14 @@
 {% if confirm %}
 <input type="text" value="{{cart.notes}}" disabled />
 <div>
-	<a class="underline" href="/cart/">Edit</a>
-	<p>{{user.first_name}} {{user.last_name}}</p>
-	<p>{{address.email}}</p>
-	<p>{{address.address}}</p>
-	<p>{{address.city}}</p>
-	<p>{{address.postal_code}}</p>
+	Delivery Address <a class="underline" href="/cart/">Edit</a>
+	<div>
+		<p>{{user.first_name}} {{user.last_name}}</p>
+		<p>{{address.email}}</p>
+		<p>{{address.address}}</p>
+		<p>{{address.city}}</p>
+		<p>{{address.postal_code}}</p>
+	</div>
 </div>
 <p>Delivery Date: {{cart.date}}</p>
 <form action="{% url 'cart_complete'%}">
