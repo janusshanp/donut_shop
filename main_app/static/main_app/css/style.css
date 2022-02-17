@@ -5,10 +5,10 @@ body {
 .quantity {
 	display: flex;
 }
-
+/* 
 .carousel a img {
 	width: 20%;
-}
+} */
 
 h1 {
 	text-align: center !important;
@@ -22,11 +22,12 @@ nav {
 	box-shadow: none !important;
 	padding-bottom: 90px;
 }
-nav li {
-	display: inline;
-	padding-right: 10px !important;
+.input-field input[type="search"] {
+	height: 64px !important;
 }
-
+.nav {
+	padding-right: 50px !important;
+}
 footer {
 	background-color: #bd9780 !important;
 	color: #362b24 !important;
@@ -59,3 +60,59 @@ td {
 	text-align: center;
 	padding: 10%;
 }
+
+h4{
+	text-align: center;
+}
+
+.auth {
+	width: 100%;
+
+}
+
+.helptext{
+	font-size: 10px;
+}
+
+#signup-btn{
+	display: flex;
+	margin: 30px;
+	justify-content: center;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.top-left {
+	text-align: left;
+	vertical-align:top;
+}
+
+.cart-delete {
+	margin-top: 50px;
+}
+
+.cart-q {
+	text-align: center;
+	border: none !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity button{
+	width: 50%;
+}
+
+#search {
+	color: #362b24 !important;
+}
+.search-img {
+	height: 20%;
+	width: 20%;
+}
+

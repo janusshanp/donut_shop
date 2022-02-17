@@ -9,7 +9,7 @@
 	<div class="daily-flavour col s12 m6">
 		<img
 			class="responsive-img"
-			src="{% static 'main_app/images/home-daily-flavour.png' %}"
+			src="{% static 'main_app/images/home-daily-flavours.png' %}"
 		/>
 	</div>
 	<div class="rewards col s12 m6">
@@ -19,10 +19,12 @@
 		/>
 	</div>
 </div>
-
+<h4>Bestsellers of the week</h4>
 <div class="carousel">
 	{% for donut in donuts %}
-		<a class="carousel-item" href="{% url 'detail' donut.id %}"><img src="{% static donut.image %}"/></a>
+	<a class="carousel-item" href="{% url 'detail' donut.id %}"
+		><img src="{% static donut.image %}"
+	/></a>
 	{% endfor %}
 </div>
 
@@ -31,7 +33,7 @@
 		<img class="responsive-img" src="{% static 'main_app/images/about.png' %}" />
 	</div>
 	<div class="about-text">
-		<h3>We are pretty a-glaze-ing</h3>
+		<h4>We are pretty a-glaze-ing</h4>
 		<p>
 			We’ve been passionate about baking since ‘08. Dough is about more than just
 			creating donuts, we are passionate about reinventing the dessert scene and
@@ -44,6 +46,7 @@
 	let carousel = document.querySelector(".carousel");
 	M.Carousel.init(carousel, {
 		fullWidth: true,
+		padding: 70,
 	});
 </script>
 

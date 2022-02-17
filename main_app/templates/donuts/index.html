@@ -1,11 +1,15 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 
-<div class="row">
-	{% for donut in donuts %}
-	<div class="col m4">
-		<a href="{% url 'detail' donut.id %}">
-			<img src="{% static donut.image %}" class="responsive-img card" />
-		</a>
+<div class="container">
+	<div class="row">
+		{% for donut in donuts %}
+		<div class="col m4">
+			<a href="{% url 'detail' donut.id %}">
+				<img src="{% static donut.image %}" class="responsive-img card" />
+				{{donut.name}} {{donut.price}}
+			</a>
+		</div>
+		{% endfor %}
 	</div>
 	{% endfor %}
 </div>
