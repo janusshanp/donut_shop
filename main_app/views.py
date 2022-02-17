@@ -210,3 +210,12 @@ def search(request):
         return render(request, 'search.html', {'searched': searched, 'donuts': donuts })
     else:
         return render(request, 'search.html')
+
+def faq(request):
+    return render(request, 'faq/index.html')
+
+def rewards(request):
+    return render(request, 'rewards/index.html')
+
+def about(request):
+    return render(request, 'about/index.html')

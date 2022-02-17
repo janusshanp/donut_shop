@@ -19,4 +19,7 @@ urlpatterns = [
     path('cart/complete/', views.cart_index, name="cart_complete"),
     path('daily/', views.daily_flavour, name="daily_flavour"),
     path('search/', views.search, name ="search"),
+    path('faq/', views.faq, name="faq"),
+    path('rewards/', views.rewards, name="rewards"),
+    path('about/', views.about, name="about")
 ]
