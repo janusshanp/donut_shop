@@ -19,28 +19,25 @@
     <nav role="navigation">
         <div class="nav-wrapper">
             <a href="/" class="brand-logo center"><img class="responsive-img logo"src="{% static 'main_app/images/logo.png' %}"></a>
-                <ul class="right">
+                <ul class="right hide-on-med-and-down">
                     <li> 
-                        <form>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="input-field inline">
-                                        <input id="search" type="search" required>
-                                        <label class="label-icon" for="search"><i class="material>search"></i></label>
-                                        <i class="material-icons">close</i>
-                                    </div>    
-                                </div>
-                            </div>
+                        <form method="POST" action = "{% url 'search' %}">
+                            {% csrf_token %}
+                            <div class="input-field">
+                                <input id="search" type="search" autocomplete="off" name= "searched">
+                                <label class="label-icon" for="search"><i class="material-icons black-text">search</i></label>
+                                <i class="material-icons">close</i>
+                            </div> 
                         </form>
                     </li>
-                        <li><a href="{% url 'account_profile' %}"><i class="medium material-icons">person_outline</i></a></li>
-                        <li><a href="{% url 'cart' %}"><i class="medium material-icons">add_shopping_cart</i></a></li>
-                        {% if user.is_authenticated %}
-                        <li><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
-                        {% else %}
-                        <li><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
-                        <li><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
-                        {% endif %} 
+                    <li><a href="{% url 'account_profile' %}"><i class="medium material-icons">person_outline</i></a></li>
+                    <li><a href="{% url 'cart' %}"><i class="medium material-icons">add_shopping_cart</i></a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
+                    <li><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                    <li><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %} 
                 </ul>
         </div>
     </nav>  
@@ -51,9 +48,9 @@
                         <div class="row center-align">  
                             <li><a href="{% url 'shop' %}">Shop</a></li>
                             <li><a href="{% url 'daily_flavour' %}">Daily Flavours</a></li>
-                            <li><a href="">About</a></li>
-                            <li><a href="">FAQ</a></li>
-                            <li><a href="">Rewards</a></li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'faq' %}">FAQ</a></li>
+                            <li><a href="{% url 'rewards' %}">Rewards</a></li>
                         </div>    
                     <ul>
             </div> 
