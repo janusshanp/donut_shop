@@ -121,7 +121,7 @@ input::-webkit-inner-spin-button {
 }
 
 .star-wrapper div {
-	font-size: 4em;
+	font-size: 2em;
 	color: lightgrey;
 	text-decoration: none;
 	transition: all 0.5s;
@@ -158,5 +158,19 @@ button, .btn, .btn-large {
 	background-color: #BFA291 !important;
 }
 
+.review-container{
+	display: flex;
+}
 
-  
+.rstars {
+	color:gold;
+}
+
+#review-content {
+	border: 1px solid #735C4F;
+	height: 100px;
+}
+
+.review-input {
+	margin: 2em;
+}
