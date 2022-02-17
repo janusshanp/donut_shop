@@ -1,19 +1,20 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
 
+
 {% if checkout %}
 	<div class="center-align">
 		<h4>Your Cart</h4>
-		<a href="{% url 'shop' %}">Continue Shopping</a>
+		<a class="underline" href="{% url 'shop' %}">Continue Shopping</a>
 	</div>
 {% elif order %}
 <h4>Thank you for Ordering with us!</h4>
 <p>Your Order No. is {{order.order_no}}</p>
 <p>Order placed on {{today}} for {{cart.date}}</p>
 {% elif confirm %}
-<h2>Review Page</h2>
-<a href="{% url 'shop' %}">Continue Shopping</a>
-<a href="{% url 'cart' %}">Edit Cart</a>
+<h5>Please review your order</h5>
+<a class="underline" href="{% url 'shop' %}">Continue Shopping</a><br>
+<a class="underline" href="{% url 'cart' %}">Edit Cart</a>
 {% endif %}
 
 <table>
@@ -21,18 +22,18 @@
 		<th style="width:20%">Product</th>
 		<th style="width:35%"></th>
 		<th style="width:15%">Price</th>
-		<th style="width:15%">Quantity</th>
-		<th style="width:15%">Total</th>
+		<th style="width:15%; text-align:center">Quantity</th>
+		<th style="width:15%; text-align:right" >Total</th>
 	</tr>
 	{% for item in items %}
 	<tr class ="items" id="{{item.id}}">
 		<td><img class="cart-image" src="{% static item.donut.image %}"/></td>
-		<td>
-			<div class="left-align">
-				{{item.donut.name}}
+		<td class="top-left">
+			<div>
+				<p>{{item.donut.name}}</p>
 				</br>
 				{% if checkout %}
-					<a href = "{% url 'delete_donut' item.donut.id %}">Delete</a>
+					<a class="underline cart-delete" href = "{% url 'delete_donut' item.donut.id %}">Delete</a>
 				{% endif %}
 			</div>
 		</td>
@@ -57,10 +58,9 @@
 				value="{{item.quantity}}"
 				disabled
 			/>
-
 			{% endif %}
 		</td>
-		<td>$ <span id="total">{{item.donut.price}}</span></td>
+		<td class="right-align">$ <span id="total">{{item.donut.price}}</span></td>
 	</tr>
 	{% endfor %}
 	<tr>
@@ -68,19 +68,21 @@
 		<td></td>
 		<td></td>
 		<td>Subtotal</td>
-		<td>$<span id="total-cart"></span></td>
+		<td class="right-align">$<span id="total-cart"></span></td>
 	</tr>
 </table>
 
 {% if confirm %}
 <input type="text" value="{{cart.notes}}" disabled />
 <div>
-	<a href="/cart/">Edit</a>
-	<p>{{user.first_name}} {{user.last_name}}</p>
-	<p>{{address.email}}</p>
-	<p>{{address.address}}</p>
-	<p>{{address.city}}</p>
-	<p>{{address.postal_code}}</p>
+	Delivery Address <a class="underline" href="/cart/">Edit</a>
+	<div>
+		<p>{{user.first_name}} {{user.last_name}}</p>
+		<p>{{address.email}}</p>
+		<p>{{address.address}}</p>
+		<p>{{address.city}}</p>
+		<p>{{address.postal_code}}</p>
+	</div>
 </div>
 <p>Delivery Date: {{cart.date}}</p>
 <form action="{% url 'cart_complete'%}">
@@ -91,7 +93,7 @@
 		{% csrf_token %}
 		<div class="row">
 			<div class="col s8">
-				<p>Notes to Bakery</p>
+				<p>Add a Note for Us</p>
 				<input id="note" name="notes" type="text" placeholder="Tell us what will make your day!">
 			</div>
 			<div class="col s4">
@@ -105,7 +107,7 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn">Checkout</button>
+		<button class="btn-large">Checkout</button>
 	</form>
 {% endif %}
 
