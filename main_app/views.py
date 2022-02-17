@@ -143,7 +143,13 @@ def donuts_index(request):
 
 def donut_detail(request, donut_id):
     donut = Donut.objects.get(id=donut_id)
-    return render(request, 'donuts/detail.html',{'donut': donut})
+    added = False 
+    try:
+        if Cart.objects.get(donuts = donut):
+            added = True
+    except:
+        print('error')
+    return render(request, 'donuts/detail.html',{'donut': donut, 'added': added})
 
 @login_required    
 def add_donut_cart(request, donut_id):
@@ -166,7 +172,7 @@ def add_review(request, donut_id):
     print(request.POST)
     Review.objects.create(
         content= request.POST['review_text'], 
-        rating= request.POST['rating'], 
+        rating= request.POST['rating'] if request.POST['rating'] else 5, 
         donuts=donuts, 
         user=request.user)
     return redirect('detail', donut_id=donut_id)

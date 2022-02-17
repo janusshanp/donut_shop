@@ -1,38 +1,78 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
+<div class="container">
+	<div class="row">
+		<div class="col s12 m6">
+			<img class="responsive-img dimage" src="{% static donut.image %}"/>
+		</div>
+		<div class="col s12 m6">
+			<h4 class="left-align">{{ donut.name }}</h4>
+				<p>{{ donut.description }}</p>
+				<form class="center-align" action="{% url 'add_cart' donut.id %}" method="post">
+					{% csrf_token %}
+					{% if added %}
+						<input type="submit" class="btn-large" value="Added" disabled/>
+					{% else %}
+					<input type="submit" class="btn-large" value="Add to Cart" />
+					{% endif %}
+				</form>
+		</div>
+	</div>
 
-<div class="row">
-	<div class="col s12 m6">
-		<img class="responsive-img" src="{% static donut.image %}" />
+	<div class="row">
+		<h5 id="review-heading" class="left-align">Reviews ({{ donut.review_set.all | length }})</h5>
+			{% for review in donut.review_set.all %}
+				<div class="review-container">
+					<div>
+						<p>{{review.user}}</p>
+						<p>February 18th 2022</p>
+						<div>
+							{% if review.rating == '5' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '4' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '3' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '2' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '1' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					<div>
+						<p>{{review.content}}</p>	
+					</div>
+				</div>
+				{% endfor %}
 	</div>
-	<div class="col s12 m6">
-		<span>{{ donut.name }}</span>
-			<p>{{ donut.description }}</p>
-		<form class="center-align" action="{% url 'add_cart' donut.id %}" method="post">
+	
+	<div class="row">
+		<h6 class="center-align">Let us know how you feel!</h6>
+		<form class="review-form row" action="{% url 'add_review' donut.id %}" method="post">
 			{% csrf_token %}
-			<input type="submit" class="btn-large" value="Add to Cart" />
-		</form>
-	</div>
-</div>
-
-<div class="row">
-	<h4>Reviews</h4>
-	<h6>Let us know how you feel!</h6>
-	<div class="col s12">
-		<table>
-			<tr>
-				{% for review in donut.review_set.all %}
-				<td>{{review.user}}<br>{{review.rating}}</td>
-				<td>{{review.content}}</td>
-			</tr>			
-			{% endfor %}
-		</table>
-	</div>
-	<div class="col s12">
-		<form class="review-form" action="{% url 'add_review' donut.id %}" method="post">
-			{% csrf_token %}
-			<input type="text" name="review_text" />
-			<div class="star-wrapper">
+			<textarea id="review-content" type="text" name="review_text"></textarea>
+			<div class="center-align star-wrapper">
 				<div class="fas fa-star s1 star"></div>
 				<div class="fas fa-star s2 star"></div>
 				<div class="fas fa-star s3 star"></div>
@@ -40,10 +80,13 @@
 				<div class="fas fa-star s5 star"></div>
 				<input type="hidden" id="rating" name="rating"/>
 			</div>
-			<button type="submit" class="btn">Add Review</button>
+			<div class="center-align">
+				<button type="submit" class="review-input btn-large">Add Review</button>
+			</div>
 		</form>
 	</div>
 </div>
+
 
 <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 <script>
