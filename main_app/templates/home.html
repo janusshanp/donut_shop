@@ -5,16 +5,18 @@
 <div class="container">
 	<div class="row">
 		<div class="daily-flavour col s6">
-			<img
-				class="responsive-img"
-				src="{% static 'main_app/images/home-daily-flavours.png' %}"
-			/>
+			<a href="{% url 'daily_flavour' %}"
+				><img
+					class="responsive-img"
+					src="{% static 'main_app/images/home-daily-flavours.png' %}"
+			/></a>
 		</div>
 		<div class="rewards col s6">
-			<img
-				class="responsive-img"
-				src="{% static 'main_app/images/rewards.png' %}"
-			/>
+			<a href="{% url 'rewards' %}"
+				><img
+					class="responsive-img"
+					src="{% static 'main_app/images/rewards.png' %}"
+			/></a>
 		</div>
 	</div>
 	<h4>Bestsellers of the week</h4>

@@ -12,9 +12,17 @@
 		<div class="col s12 m6">
 			<span>{{ donut.name }}</span>
 			<p>{{ donut.description }}</p>
-			<form action="{% url 'add_cart' donut.id %}" method="post">
+			<form
+				action="{% url 'add_cart' donut.id %}"
+				method="post"
+				class="center-align"
+			>
 				{% csrf_token %}
-				<input type="submit" class="btn" value="Add {{ donut.price }}" />
+				<input
+					type="submit"
+					class="btn-large daily-btn"
+					value="Add {{ donut.price }}"
+				/>
 			</form>
 		</div>
 	</div>
@@ -23,9 +31,17 @@
 		<div class="col s12 m6">
 			<span>{{ donut.name }}</span>
 			<p>{{ donut.description }}</p>
-			<form action="{% url 'add_cart' donut.id %}" method="post">
+			<form
+				action="{% url 'add_cart' donut.id %}"
+				method="post"
+				class="center-align"
+			>
 				{% csrf_token %}
-				<input type="submit" class="btn" value="Add {{ donut.price }}" />
+				<input
+					type="submit"
+					class="btn-large daily-btn"
+					value="Add {{ donut.price }}"
+				/>
 			</form>
 		</div>
 		<div class="col s12 m6">

@@ -15,17 +15,21 @@ h4.center.account {
 .rewards-banner,
 .about-banner,
 .faq-banner,
-.home-banner {
-	padding-bottom: 25px;
+.home-banner,
+.daily-banner {
+	padding-bottom: 30px;
 }
 .donut-dollars {
 	padding-top: 25px;
 }
 .home-row,
-.dollar {
+.dollar,
+.daily-row {
 	display: flex;
 }
-
+.daily-btn {
+	margin: 80px;
+}
 h1 {
 	text-align: center !important;
 }
@@ -184,20 +188,19 @@ button,
 	background-color: #bfa291 !important;
 }
 
-.review-container{
+.review-container {
 	display: flex;
 }
 
 .rstars {
-	color:gold;
+	color: gold;
 }
 
 #review-content {
-	border: 1px solid #735C4F;
+	border: 1px solid #735c4f;
 	height: 100px;
 }
 
 .review-input {
 	margin: 2em;
 }
-
