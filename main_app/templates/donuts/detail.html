@@ -1,91 +1,83 @@
-{% extends 'base.html' %} {% block content %} {% load static %}
+{% extends 'base.html' %} {% block content %}
+{% load static %}
 <div class="container">
 	<div class="row">
 		<div class="col s4">
-			<img class="responsive-img image" src="{% static donut.image %}" />
+			<img class="responsive-img dimage" src="{% static donut.image %}"/>
 		</div>
 		<div class="col s8">
 			<h4 class="left-align">{{ donut.name }}</h4>
-			<p>{{ donut.description }}</p>
-			<form
-				class="center-align"
-				action="{% url 'add_cart' donut.id %}"
-				method="post"
-			>
-				{% csrf_token %} {% if added %}
-				<input type="submit" class="btn-large" value="Added" disabled />
-				{% else %}
-				<input type="submit" class="btn-large" value="Add to Cart" />
-				{% endif %}
-			</form>
+				<p>{{ donut.description }}</p>
+				<form class="center-align" action="{% url 'add_cart' donut.id %}" method="post">
+					{% csrf_token %}
+					{% if added %}
+						<input type="submit" class="btn-large" value="Added" disabled/>
+					{% else %}
+					<input type="submit" class="btn-large" value="Add to Cart" />
+					{% endif %}
+				</form>
 		</div>
 	</div>
 	<div class="row">
-		<h5 id="review-heading" class="left-align">
-			Reviews ({{ donut.review_set.all | length }})
-		</h5>
-		{% for review in donut.review_set.all %}
-		<div class="review-container">
-			<div>
-				<p>{{review.user}}</p>
-				<p>February 18th 2022</p>
-				<div>
-					{% if review.rating == '5' %}
-					<div class="left-align wrapper">
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
+		<h5 id="review-heading" class="left-align">Reviews ({{ donut.review_set.all | length }})</h5>
+			{% for review in donut.review_set.all %}
+				<div class="review-container">
+					<div>
+						<p>{{review.user}}</p>
+						<p>February 18th 2022</p>
+						<div>
+							{% if review.rating == '5' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '4' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '3' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '2' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% elif review.rating == '1' %}
+								<div class="left-align wrapper">
+									<div class="rstars fas fa-star"></div>
+								</div>
+							{% endif %}
+						</div>
 					</div>
-					{% elif review.rating == '4' %}
-					<div class="left-align wrapper">
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
+					<div>
+						<p>{{review.content}}</p>	
 					</div>
-					{% elif review.rating == '3' %}
-					<div class="left-align wrapper">
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-					</div>
-					{% elif review.rating == '2' %}
-					<div class="left-align wrapper">
-						<div class="rstars fas fa-star"></div>
-						<div class="rstars fas fa-star"></div>
-					</div>
-					{% elif review.rating == '1' %}
-					<div class="left-align wrapper">
-						<div class="rstars fas fa-star"></div>
-					</div>
-					{% endif %}
 				</div>
-			</div>
-			<div>
-				<p>{{review.content}}</p>
-			</div>
-		</div>
-		{% endfor %}
+				{% endfor %}
 	</div>
-
+	
 	<div class="row">
 		<h6 class="center-align">Let us know how you feel!</h6>
-		<form
-			class="review-form row"
-			action="{% url 'add_review' donut.id %}"
-			method="post"
-		>
+		<form class="review-form row" action="{% url 'add_review' donut.id %}" method="post">
 			{% csrf_token %}
-			<textarea id="review-content" type="text" name="review_text"></textarea>
+			<textarea type="text" name="review_text"></textarea>
 			<div class="center-align star-wrapper">
 				<div class="fas fa-star s1 star"></div>
 				<div class="fas fa-star s2 star"></div>
 				<div class="fas fa-star s3 star"></div>
 				<div class="fas fa-star s4 star"></div>
 				<div class="fas fa-star s5 star"></div>
-				<input type="hidden" id="rating" name="rating" />
+				<input type="hidden" id="rating" name="rating"/>
 			</div>
 			<div class="center-align">
 				<button type="submit" class="review-input btn-large">Add Review</button>
@@ -94,42 +86,50 @@
 	</div>
 </div>
 
+
 <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 <script>
-	stars = document.querySelectorAll(".star");
-	inputEl = document.getElementById("rating");
+	stars = document.querySelectorAll('.star');
+	inputEl = document.getElementById('rating')
 
-	for (let i = 0; i < stars.length; i++) {
-		stars[i].addEventListener("click", function (e) {
-			if (e.target.classList.contains("s5")) {
-				console.log(e.target);
-				inputEl.value = "1";
-				updatColors(parseInt(inputEl.value));
-			} else if (e.target.classList.contains("s4")) {
-				console.log(e.target);
-				inputEl.value = "2";
-				updatColors(parseInt(inputEl.value));
-			} else if (e.target.classList.contains("s3")) {
-				console.log(e.target);
-				inputEl.value = "3";
-				updatColors(parseInt(inputEl.value));
-			} else if (e.target.classList.contains("s2")) {
-				console.log(e.target);
-				inputEl.value = "4";
-				updatColors(parseInt(inputEl.value));
-			} else if (e.target.classList.contains("s1")) {
-				console.log(e.target);
-				inputEl.value = "5";
-				updatColors(parseInt(inputEl.value));
+	for (let i=0; i < stars.length; i++){
+		stars[i].addEventListener("click",function(e){
+			if (e.target.classList.contains('s5')){
+				console.log(e.target)
+				inputEl.value = '1'
+				updatColors(parseInt(inputEl.value))
 			}
-		});
+			else if (e.target.classList.contains('s4')){
+				console.log(e.target)
+				inputEl.value = '2'
+				updatColors(parseInt(inputEl.value))
+			} 
+			else if (e.target.classList.contains('s3')){
+				console.log(e.target)
+				inputEl.value = '3'
+				updatColors(parseInt(inputEl.value))
+			} 
+			else if (e.target.classList.contains('s2')){
+				console.log(e.target)
+				inputEl.value = '4'
+				updatColors(parseInt(inputEl.value))
+			} 
+			else if (e.target.classList.contains('s1')){
+				console.log(e.target)
+				inputEl.value = '5'
+				updatColors(parseInt(inputEl.value))
+			}  
+		})
 	}
 
-	function updatColors(value) {
-		for (let i = 0; i < value; i++) {
-			stars[4 - i].style.color = "gold";
+	function updatColors(value){
+		for (let i=0; i < value; i++){
+			stars[4-i].style.color = 'gold'
 		}
 	}
+
 </script>
 
 {% endblock %}
+
+
