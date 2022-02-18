@@ -80,9 +80,10 @@ def cart_payment(request):
     print(len(cart.donuts.all()))
     if len(cart.donuts.all()) < 1:
         return redirect('cart')
-    cart.date = request.POST['date']
-    cart.notes = request.POST['notes']
-    cart.save()
+    if request.POST:
+        cart.date = request.POST['date']
+        cart.notes = request.POST['notes']
+        cart.save()
     user_items = cart.itemcart_set.all()
     if request.user.profile_set.first().delivery_address_set.first():
         address = request.user.profile_set.first().delivery_address_set.first()
