@@ -46,6 +46,7 @@ nav {
 	transform: translate(0) !important;
 	box-shadow: none !important;
 	padding-bottom: 90px;
+	font-weight: bold;
 }
 nav.nav-center ul {
 	text-align: center;
@@ -229,7 +230,7 @@ button,
 }
 
 .shop-tile {
-	margin-bottom: 20px
+	margin-bottom: 20px;
 }
 
 #note {
@@ -238,5 +239,3 @@ button,
 	border: 1px solid #735c4f;
 	border-radius: 15px;
 }
-
-
