@@ -15,7 +15,7 @@
 			<button class="btn">Confirm</button>
 		</form>
 	</div>
-	<div class="col s4 brown-cart">
+	<div class="col s4 side-cart">
 		<div class="brown-cart">
 		<table class="payment-cart">
 			<br>
@@ -25,7 +25,7 @@
 				<td>{{item.donut.name}}</td>
 				<td style="display: none" class="price">{{item.donut.price}}</td>
 				<td style="display: none" class="quantity">{{item.quantity}}</td>
-				<td><span id="total"></span></td>
+				<td>$<span id="total"></span></td>
 			</tr>
 			{% endfor %}
 			<tr>
@@ -39,14 +39,14 @@
 				<td>Delivery</td>
 				<td></td>
 				<td>
-					<div class="right-align">$2.99</div>
+					<div class="right-align"><span>$2.99</span></div>
 				</td>
 			</tr>
 			<tr>
 				<td>Total</td>
 				<td></td>
 				<td>
-					<div class="right-align">$<span id="subtotal">9.99</span></div>
+					<div class="right-align">$<span id="final-total"></span></div>
 				</td>
 			</tr>
 		</table>

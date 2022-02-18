@@ -21,10 +21,10 @@
 	<div class="row">
 		<h5 id="review-heading" class="left-align">Reviews ({{ donut.review_set.all | length }})</h5>
 			{% for review in donut.review_set.all %}
-				<div class="review-container">
-					<div>
-						<p>{{review.user}}</p>
-						<p>February 18th 2022</p>
+				<div class="col s12">
+					<div class="col s4">
+						<p>{{review.user}}<br>
+						February 18th 2022</p>
 						<div>
 							{% if review.rating == '5' %}
 								<div class="left-align wrapper">
@@ -59,7 +59,7 @@
 							{% endif %}
 						</div>
 					</div>
-					<div>
+					<div class="col s8">
 						<p>{{review.content}}</p>	
 					</div>
 				</div>
@@ -70,7 +70,7 @@
 		<h6 class="center-align">Let us know how you feel!</h6>
 		<form class="review-form row" action="{% url 'add_review' donut.id %}" method="post">
 			{% csrf_token %}
-			<textarea type="text" name="review_text"></textarea>
+			<textarea style="resize:none; height:100px" type="text" name="review_text"></textarea>
 			<div class="center-align star-wrapper">
 				<div class="fas fa-star s1 star"></div>
 				<div class="fas fa-star s2 star"></div>
