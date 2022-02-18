@@ -77,6 +77,9 @@ def create_order_no():
 @login_required
 def cart_payment(request):
     cart = Cart.objects.get(user = request.user)
+    print(len(cart.donuts.all()))
+    if len(cart.donuts.all()) < 1:
+        return redirect('cart')
     cart.date = request.POST['date']
     cart.notes = request.POST['notes']
     cart.save()
