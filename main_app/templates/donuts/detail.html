@@ -2,10 +2,10 @@
 {% load static %}
 <div class="container">
 	<div class="row">
-		<div class="col s12 m6">
+		<div class="col s4">
 			<img class="responsive-img dimage" src="{% static donut.image %}"/>
 		</div>
-		<div class="col s12 m6">
+		<div class="col s8">
 			<h4 class="left-align">{{ donut.name }}</h4>
 				<p>{{ donut.description }}</p>
 				<form class="center-align" action="{% url 'add_cart' donut.id %}" method="post">
