@@ -112,13 +112,6 @@
 {% endif %}
 
 <script>
-	// {% comment %} var dateEl = document.getElementById('id_date');
-	// M.Datepicker.init(dateEl, {
-	// 	defaultDate: new Date(),
-	// 	setDefaultDate: true,
-	// 	autoClose: true
-	// });  {% endcomment %}
-
 	plusButton = document.querySelectorAll('#plus');
 	minusButton = document.querySelectorAll('#minus');
 	inputBox = document.querySelectorAll('.cart-q');
@@ -152,11 +145,6 @@
 		})
 	}
 
-	// {% comment %} custNotes.addEventListener('input', function(){
-	// 	newNote = custNotes.textContent
-	// 	sendNotes(newNote)
-	// }) {% endcomment %}
-
 	function updateTotal(){
 		total = 0
 		for (let i=0; i < totalBox.length; i++){
@@ -172,11 +160,6 @@
 		quantity = await fetch(url).then(console.log("hi"))
 	}
 
-	const NOTES_URL = 'http://localhost:8000/cart/notes/'
-
-	// {% comment %} async function sendNotes (notes) {
-	// 	quantity = await fetch(NOTES_URL).then(console.log("hi"))
-	// } {% endcomment %}
 </script>
 
 {% endblock %}

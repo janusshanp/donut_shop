@@ -13,7 +13,7 @@ CHOICES = (
 # Create your models here.
 class Donut(models.Model):
     name = models.CharField(max_length=40)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=400)
     price = models.FloatField()
     special = models.BooleanField()
     image = models.CharField(max_length=200)
