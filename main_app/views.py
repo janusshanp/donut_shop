@@ -105,7 +105,11 @@ def cart_payment(request):
 def account_profile(request):
     orders = request.user.order_set.all()
     profile=Profile.objects.get(user=request.user)
-    delivery_address=Delivery_Address.objects.get(profile=profile)
+    delivery_address=''
+    try:
+        delivery_address=Delivery_Address.objects.get(profile=profile)
+    except:
+        print('error')
     return render(request, 'profile/index.html', {
         'orders': orders, 
         'profile':profile,

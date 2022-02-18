@@ -12,8 +12,8 @@
 				<tr>
 					<td>{{order.order_no}}</td>
 					<td>{{order.delivery_date}}</td>
-					<td>Paid<td>
-					{% endfor %}
+					<td>Paid</tr>td>
+					<td>{% endfor %}</td>
 				</tr>
 			</table>
 		</div>
@@ -25,14 +25,20 @@
 				{{delivery_address.city}} {{delivery_address.country}}
 				{{delivery_address.Province}} {{delivery_address.postal_code}}
 			</p>
-			<a class="underline"href="{% url 'delivery_update' delivery_address.id %}">Change</a>
+			{% if delivery_address %}
+			<a class="underline" href="{% url 'delivery_update' delivery_address.id %}"
+				>Change</a>
+			{% endif %}	
 		</div>
 	</div>
 	<span>Reward Balance</span>
 
 	<div class="row">
 		<img class="responsive-img" src="{% static 'main_app/images/gold.png' %}" />
-		<p class="right">Sweet! {{user.first_name}}, you are a Dough Gold Member!<br>Thanks for being you!</p>
+		<p class="right">
+			Sweet! {{user.first_name}}, you are a Dough Gold Member!<br />Thanks for
+			being you!
+		</p>
 	</div>
 </div>
 {% endblock %}
