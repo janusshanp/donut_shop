@@ -196,6 +196,7 @@ def add_review(request, donut_id):
 
 def signup(request):
   error_message = ''
+  errors = ''
   if request.method == 'POST':
     form = UserForm(request.POST)
     if form.is_valid():
@@ -205,9 +206,11 @@ def signup(request):
       Cart(user=user, date= date.today()).save()
       return redirect('home')
     else:
+      errors=form.errors
       error_message = 'Invalid sign up - try again'
+      print(errors)
   form = UserForm()
-  context = {'form': form, 'error_message': error_message}
+  context = {'form': form, 'error_message': error_message, 'errors':errors}
   return render(request, 'registration/signup.html', context)
 
 @login_required
@@ -230,7 +233,7 @@ def daily_flavour(request):
 def search(request):
     if request.method == 'POST':
         searched = request.POST['searched'].lower()
-        donuts = Donut.objects.filter(description__contains=searched)
+        donuts = Donut.objects.filter(description__icontains=searched)
         return render(request, 'donuts/index.html', {'searched': searched, 'donuts': donuts })
     else:
         donuts = Donut.objects.all()
