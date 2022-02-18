@@ -8,7 +8,7 @@
 - Check out the About, FAQ and Rewards pages to learn more about this unique donut shop!
 
 # Screenshots:
-<img src="/main_app/images/screenshots/homepage.png">
+<img src="main_app/static/main_app/images/screenshots/homepage.png">
 
 
 # Technologies Used: 
