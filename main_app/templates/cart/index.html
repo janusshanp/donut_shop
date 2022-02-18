@@ -156,7 +156,12 @@
 		totalBox[i].textContent = (inputBox[i].value * parseFloat(priceBox[i].textContent)).toFixed(2)
 	}
 
+	
 	updateTotal()
+	if (finalTotal){
+		finalTotal.textContent =  (parseFloat(totalcart.textContent) + parseFloat(delivery.textContent)).toFixed(2)
+		totalcart.textContent = total.toFixed(2)
+	}
 
 	for (let i=0; i < plusButton.length; i++){
 		plusButton[i].addEventListener("click",function(){
@@ -179,9 +184,8 @@
 		total = 0
 		for (let i=0; i < totalBox.length; i++){
 			total += parseFloat(totalBox[i].textContent)
+			totalcart.textContent = total.toFixed(2)
 		}
-		totalcart.textContent = total.toFixed(2)
-		finalTotal.textContent =  (parseFloat(totalcart.textContent) + parseFloat(delivery.textContent)).toFixed(2)
 	}
 
 	const Q_URL = 'http://localhost:8000/cart/quantity/'
