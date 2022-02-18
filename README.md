@@ -10,8 +10,8 @@
 
 # Screenshots:
 
-<img src="static/main_app/images/screenshots/homepage.png">
-<img src="static/main_app/images/screenshots/shop.png">
+<img src='main_app/static/main_app/images/screenshots/homepage.png'>
+<img src='main_app/static/main_app/images/screenshots/shop.png'>
 
 # Technologies Used:
 
