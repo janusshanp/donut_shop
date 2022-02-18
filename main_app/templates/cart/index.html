@@ -46,7 +46,7 @@
 				{% endif %}
 			</div>
 		</td>
-		<td>$<span id="price">{{item.donut.price}}</span></td>
+		<td>$<span style="font-weight:normal"id="price">{{item.donut.price}}</span></td>
 		<td>
 			{% if checkout %}
 			<div class="quantity">
@@ -69,7 +69,7 @@
 			/>
 			{% endif %}
 		</td>
-		<td class="right-align">$ <span id="total">{{item.donut.price}}</span></td>
+		<td class="right-align">$ <span style="font-weight:normal" id="total">{{item.donut.price}}</span></td>
 	</tr>
 	{% endfor %}
 	<tr>
@@ -77,8 +77,24 @@
 		<td></td>
 		<td></td>
 		<td>Subtotal</td>
-		<td class="right-align">$<span id="total-cart"></span></td>
+		<td class="right-align">$<span style="font-weight:normal" id="total-cart"></span></td>
 	</tr>
+	{% if checkout == False %}
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Delivery</td>
+			<td class="right-align">$<span style="font-weight:normal" id="delivery">2.99</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Final Total</td>
+			<td class="right-align">$<span style="font-weight:normal" id="final-total"></span></td>
+		</tr>
+	{% endif %}
 </table>
 
 {% if confirm %}
@@ -132,6 +148,8 @@
 	items = document.querySelectorAll('.items');
 	totalcart = document.getElementById('total-cart')
 	custNotes = document.getElementById('note')
+	delivery = document.getElementById('delivery')
+	finalTotal = document.getElementById('final-total')
 
 
 	for (let i=0; i < totalBox.length; i++){
@@ -163,6 +181,7 @@
 			total += parseFloat(totalBox[i].textContent)
 		}
 		totalcart.textContent = total.toFixed(2)
+		finalTotal.textContent =  (parseFloat(totalcart.textContent) + parseFloat(delivery.textContent)).toFixed(2)
 	}
 
 	const Q_URL = 'http://localhost:8000/cart/quantity/'
