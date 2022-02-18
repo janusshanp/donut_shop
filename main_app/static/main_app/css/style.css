@@ -12,20 +12,29 @@ h4.center.account {
 	max-height: 709px;
 	width: 100vw;
 }
+.bestseller {
+	padding: 10px;
+}
 .rewards-banner,
 .about-banner,
 .faq-banner,
-.home-banner {
-	padding-bottom: 25px;
+.home-banner,
+.daily-banner {
+	padding-bottom: 30px;
 }
 .donut-dollars {
 	padding-top: 25px;
 }
 .home-row,
-.dollar {
+.dollar,
+.daily-row,
+.about-row {
 	display: flex;
+	padding: 30px 0;
 }
-
+.daily-btn {
+	margin: 80px;
+}
 h1 {
 	text-align: center !important;
 }
@@ -64,6 +73,11 @@ span {
 	font-weight: bold;
 	font-size: 18px;
 }
+.address li,
+.contact li,
+.follow li {
+	/* font-weight: 200 !important; */
+}
 .review-form {
 	width: 507px;
 	height: 143px;
@@ -81,9 +95,8 @@ td {
 
 .delivery {
 	border: 1px solid rgb(201, 193, 193);
-	border-radius: 15%;
+	border-radius: 15px;
 	text-align: center;
-	padding: 10%;
 }
 
 h4 {
@@ -120,6 +133,19 @@ h4 {
 .cart-q {
 	text-align: center;
 	border: none !important;
+}
+.payment-cart-image {
+	max-height: 100px;
+	max-width: 100px;
+}
+.payment-cart td {
+	padding: 10px;
+}
+
+.brown-cart {
+	height: 725px;
+	background-color: #bfa291;
+	opacity: 0.9;
 }
 
 input::-webkit-outer-spin-button,
@@ -184,16 +210,17 @@ button,
 	background-color: #bfa291 !important;
 }
 
-.review-container{
+.review-container {
 	display: flex;
 }
 
 .rstars {
-	color:gold;
+	color: gold;
 }
 
 #review-content {
-	border: 1px solid #735C4F;
+	border: 1px solid #735c4f;
+	border-radius: 15px;
 	height: 100px;
 }
 
@@ -204,3 +231,12 @@ button,
 .shop-tile {
 	margin-bottom: 20px
 }
+
+#note {
+	width: 75%;
+	height: 100px;
+	border: 1px solid #735c4f;
+	border-radius: 15px;
+}
+
+

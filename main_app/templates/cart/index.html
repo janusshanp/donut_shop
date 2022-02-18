@@ -1,17 +1,25 @@
 {% extends 'base.html' %} {% block content %}
 {% load static %}
 
-
+<div class="container">
 {% if checkout %}
+<div class="col s12">
+	<a class="underline" href="{% url 'cart' %}">Cart </a>
+</div>
 	<div class="center-align">
 		<h4>Your Cart</h4>
 		<a class="underline" href="{% url 'shop' %}">Continue Shopping</a>
 	</div>
 {% elif order %}
 <h4>Thank you for Ordering with us!</h4>
-<p>Your Order No. is {{order.order_no}}</p>
+<span>Your Order No. is {{order.order_no}}</span>
 <p>Order placed on {{today}} for {{cart.date}}</p>
 {% elif confirm %}
+<div class="col s12">
+	<a href="{% url 'cart' %}">Cart ></a>
+	<a href="{% url 'payment' %}"> Delivery and Payment ></a>
+	<a class="underline" href="{% url 'cart_review' %}">Review </a>
+</div>
 <h5>Please review your order</h5>
 <a class="underline" href="{% url 'shop' %}">Continue Shopping</a><br>
 <a class="underline" href="{% url 'cart' %}">Edit Cart</a>
@@ -34,6 +42,8 @@
 				</br>
 				{% if checkout %}
 					<a class="underline cart-delete" href = "{% url 'delete_donut' item.donut.id %}">Delete</a>
+				{% elif confirm %}
+					<a class="underline cart-delete" href = "{% url 'cart' %}">Edit</a>
 				{% endif %}
 			</div>
 		</td>
@@ -41,14 +51,14 @@
 		<td>
 			{% if checkout %}
 			<div class="quantity">
-				<button id="minus">-</button>
+				<button class="btn"id="minus">-</button>
 				<input
 					id="{{item.donut.id}}"
 					class="cart-q"
 					type="number"
 					value="{{item.quantity}}"
 				/>
-				<button id="plus">+</button>
+				<button class="btn"id="plus">+</button>
 			</div>
 			{% else %}
 			<input
@@ -74,32 +84,34 @@
 
 {% if confirm %}
 <input type="text" value="{{cart.notes}}" disabled />
-<div>
-	Delivery Address <a class="underline" href="/cart/">Edit</a>
-	<div>
-		<p>{{user.first_name}} {{user.last_name}}</p>
-		<p>{{address.email}}</p>
-		<p>{{address.address}}</p>
-		<p>{{address.city}}</p>
-		<p>{{address.postal_code}}</p>
+	<div class="container">
+		<div class="center">
+			<span>Delivery Address</span> <br>
+			<a class="underline" href="/cart/">Edit</a>
+			<p >{{user.first_name}} {{user.last_name}}<br>
+				{{address.email}}<br>
+				{{address.address}}<br>
+				{{address.city}}<br>
+				{{address.postal_code}}<br>
+				Delivery Date: {{cart.date}}</p>
+				<form action="{% url 'cart_complete'%}">
+					<button class="btn">Complete</button>
+			</form>
+		</div>
 	</div>
-</div>
-<p>Delivery Date: {{cart.date}}</p>
-<form action="{% url 'cart_complete'%}">
-	<button class="btn">Complete</button>
-</form>
+	<br><br>
 {% elif checkout %}
 	<form action="{% url 'payment'%}" method="post">
 		{% csrf_token %}
 		<div class="row">
 			<div class="col s8">
-				<p>Add a Note for Us</p>
+				<p>Add a Note to the baker!</p>
 				<input id="note" name="notes" type="text" placeholder="Tell us what will make your day!">
 			</div>
 			<div class="col s4">
 				<div class="delivery">
-					<i class="medium material-icons">local_shipping</i>
-					<p>Local Delivery</p>
+					<i class="medium material-icons">local_shipping</i><br>
+					Local Delivery
 				</div>
 				<div>
 					<p>Choose a date and time</p>
@@ -109,6 +121,7 @@
 		</div>
 		<button class="btn-large">Checkout</button>
 	</form>
+	<br><br>
 {% endif %}
 
 <script>
@@ -161,5 +174,5 @@
 	}
 
 </script>
-
+</div>
 {% endblock %}
