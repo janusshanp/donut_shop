@@ -48,6 +48,9 @@ nav {
 	padding-bottom: 90px;
 	font-weight: bold;
 }
+nav.nav-center {
+	padding-top: 20px;
+}
 nav.nav-center ul {
 	text-align: center;
 }
@@ -145,13 +148,11 @@ h4 {
 }
 
 .brown-cart {
-	height:725px;
+	height: 725px;
 	background-color: #bfa291;
 	opacity: 0.8;
-	width:fit-content;
-
+	width: fit-content;
 }
-
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -244,6 +245,6 @@ button,
 	border-radius: 15px;
 }
 
-#review-heading{
-	border-bottom: 1px solid #362B24;
+#review-heading {
+	border-bottom: 1px solid #362b24;
 }

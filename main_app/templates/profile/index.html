@@ -31,14 +31,16 @@
 			{% endif %}	
 		</div>
 	</div>
-	<span>Reward Balance</span>
-
-	<div class="row">
-		<img class="responsive-img" src="{% static 'main_app/images/gold.png' %}" />
-		<p class="right">
-			Sweet! {{user.first_name}}, you are a Dough Gold Member!<br />Thanks for
-			being you!
-		</p>
+	<h4>Reward Balance</h4>
+	<br>
+	<div class="container">
+		<div class="row">
+			<img class="responsive-img" src="{% static 'main_app/images/gold.png' %}" />
+			<p class="right">
+				Sweet! {{user.first_name}}, you are a Dough Gold Member!<br />Thanks for
+				being you!
+			</p>
+		</div>
 	</div>
 </div>
 {% endblock %}

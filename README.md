@@ -8,6 +8,11 @@
 - Head to your profile to see your previous orders and address.
 - Check out the About, FAQ and Rewards pages to learn more about this unique donut shop!
 
+# Planning:
+
+[Trello Board](https://trello.com/b/o1v6tV9X/donut-shop)
+[ERD](https://lucid.app/lucidchart/a81dab76-b493-4454-9a8c-1499622b3efd/edit?page=0_0&invitationId=inv_3f195039-0c61-407e-aa6a-fc4d56c664df#)
+
 # Screenshots:
 
 1. Homepage
@@ -25,10 +30,6 @@
 # Getting Started:
 
 [App](https://donut-plains-shop.herokuapp.com/)
-
-[Trello Board](https://trello.com/b/o1v6tV9X/donut-shop)
-
-[ERD](https://lucid.app/lucidchart/a81dab76-b493-4454-9a8c-1499622b3efd/edit?page=0_0&invitationId=inv_3f195039-0c61-407e-aa6a-fc4d56c664df#)
 
 # Next Steps:
 
