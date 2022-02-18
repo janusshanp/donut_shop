@@ -106,8 +106,11 @@ def account_profile(request):
     orders = request.user.order_set.all()
     profile=Profile.objects.get(user=request.user)
     delivery_address=Delivery_Address.objects.get(profile=profile)
-    print()
-    return render(request, 'profile/index.html', {'orders': orders, 'profile':profile,'delivery_address': delivery_address})
+    return render(request, 'profile/index.html', {
+        'orders': orders, 
+        'profile':profile,
+        'user': request.user,
+        'delivery_address': delivery_address})
 
 @login_required
 def add_info(request):
@@ -140,6 +143,7 @@ def add_info(request):
 def donuts_index(request):
     donuts = Donut.objects.all()
     return render(request, 'donuts/index.html', {'donuts': donuts})
+    
 
 def donut_detail(request, donut_id):
     donut = Donut.objects.get(id=donut_id)
@@ -151,6 +155,13 @@ def donut_detail(request, donut_id):
         print('error')
     return render(request, 'donuts/detail.html',{'donut': donut, 'added': added})
 
+@login_required
+def quick_add(request,donut_id):
+    donut = Donut.objects.get(id = donut_id)
+    cart = Cart.objects.get(user = request.user)
+    cart.donuts.add(donut)
+    return redirect('shop')
+
 @login_required    
 def add_donut_cart(request, donut_id):
     donut = Donut.objects.get(id = donut_id)
@@ -161,12 +172,14 @@ def add_donut_cart(request, donut_id):
     else:
         return redirect('detail', donut_id= donut_id)
 
+@login_required
 def delete_donut (request, donut_id):
     donut = Donut.objects.get(id = donut_id)
     cart = Cart.objects.get(user = request.user)
     cart.donuts.remove(donut)
     return redirect('cart')
 
+@login_required
 def add_review(request, donut_id):
     donuts = Donut.objects.get(id=donut_id)
     print(request.POST)
@@ -193,6 +206,7 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+@login_required
 def quantity_update(request, donut_id, item_id, amount_id):
     item = ItemCart.objects.get(id= item_id)
     item.quantity = int(amount_id)
@@ -202,10 +216,6 @@ def quantity_update(request, donut_id, item_id, amount_id):
 
 def add_note(request):
     pass
-    # cart = Cart.objects.get(user = request.user)
-    # cart.notes = request.
-    # response = HttpResponse()
-    # return response
 
 def daily_flavour(request):
     donuts = Donut.objects.filter(special='True')
@@ -215,11 +225,12 @@ def daily_flavour(request):
 
 def search(request):
     if request.method == 'POST':
-        searched = request.POST['searched']
-        donuts = Donut.objects.filter(name__contains=searched)
-        return render(request, 'search.html', {'searched': searched, 'donuts': donuts })
+        searched = request.POST['searched'].lower()
+        donuts = Donut.objects.filter(description__contains=searched)
+        return render(request, 'donuts/index.html', {'searched': searched, 'donuts': donuts })
     else:
-        return render(request, 'search.html')
+        donuts = Donut.objects.all()
+        return render(request, 'donuts/index.html', {'donuts': donuts})
 
 def faq(request):
     return render(request, 'faq/index.html')

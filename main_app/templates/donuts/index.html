@@ -1,15 +1,36 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container">
+	{% if searched %}
+	<p>You searched for {{searched}}</p>
+	{% endif %}
 	<div class="row">
 		{% for donut in donuts %}
-		<div class="col m4">
-			<a href="{% url 'detail' donut.id %}">
-				<img src="{% static donut.image %}" class="responsive-img" />
-				{{donut.name}}
-				<button>Add ${{donut.price}}</button>
-			</a>
+		<div class="shop-tile col m4">
+			<div class="center-align">
+				<a href="{% url 'detail' donut.id %}">
+					<img src="{% static donut.image %}" class="responsive-img" />
+					<p>{{donut.name}}</p>
+				</a>
+				<a href="{% url 'quick_add' donut.id %}">
+					<button id="{{donut.id}}"class="btn-small">Add ${{donut.price}}</button>
+				</a>
+			</div>
 		</div>
 		{% endfor %}
 	</div>
 </div>
+
+
+<script>
+	buttons = document.querySelectorAll('button')
+	
+	for (let i=0; i < buttons.length; i++){
+		URL = 'http://localhost:8000/shop/'
+		buttons[i].addEventListener("click",function(){
+			buttons[i].textContent = 'Added'
+			changeButton(buttons[i].id)
+		})
+	}
+</script>
+
 {% endblock %}

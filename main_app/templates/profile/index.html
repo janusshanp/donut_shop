@@ -8,11 +8,11 @@
 				<th>Order</th>
 				<th>Date</th>
 				<th>Payment Status</th>
-				<th>Total</th>
 				{% for order in orders %}
 				<tr>
 					<td>{{order.order_no}}</td>
 					<td>{{order.delivery_date}}</td>
+					<td>Paid<td>
 					{% endfor %}
 				</tr>
 			</table>
@@ -25,14 +25,14 @@
 				{{delivery_address.city}} {{delivery_address.country}}
 				{{delivery_address.Province}} {{delivery_address.postal_code}}
 			</p>
-			<a href="{% url 'delivery_update' delivery_address.id %}">Change</a>
+			<a class="underline"href="{% url 'delivery_update' delivery_address.id %}">Change</a>
 		</div>
 	</div>
 	<span>Reward Balance</span>
 
 	<div class="row">
 		<img class="responsive-img" src="{% static 'main_app/images/gold.png' %}" />
-		<p class="right">Swweet! You are a Dough Gold Member!</p>
+		<p class="right">Sweet! {{user.first_name}}, you are a Dough Gold Member!<br>Thanks for being you!</p>
 	</div>
 </div>
 {% endblock %}
