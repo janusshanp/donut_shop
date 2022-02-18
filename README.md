@@ -10,8 +10,10 @@
 
 # Screenshots:
 
-<img src='main_app/static/main_app/images/screenshots/home.png'>
-<img src='main_app/static/main_app/images/screenshots/shop.png'>
+1. Homepage
+   <img src='main_app/static/main_app/images/screenshots/home.png'>
+2. Shop page
+   <img src='main_app/static/main_app/images/screenshots/shop.png'>
 
 # Technologies Used:
 
@@ -19,7 +21,6 @@
 2. Python
 3. Django
 4. Materialize
-5.
 
 # Getting Started:
 
