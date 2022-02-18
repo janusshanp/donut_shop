@@ -10,7 +10,7 @@
 
 # Screenshots:
 
-<img src='main_app/static/main_app/images/screenshots/homepage.png'>
+<img src='main_app/static/main_app/images/screenshots/home.png'>
 <img src='main_app/static/main_app/images/screenshots/shop.png'>
 
 # Technologies Used:
