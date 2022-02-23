@@ -25,7 +25,7 @@
 			<div class="carousel">
 				{% for donut in donuts %}
 				<a class="carousel-item" href="{% url 'detail' donut.id %}"
-					><img src="{% static donut.image %}"
+					><img class="responsive-img" src="{% static donut.image %}"
 				/></a>
 				{% endfor %}
 			</div>
@@ -33,12 +33,12 @@
 	</div>
 
 	<div class="row home-row">
-		<div class="about col s12">
+		<div class="about col s6">
 			<a href="{% url 'about' %}"
 				><img class="responsive-img" src="{% static 'main_app/images/about.png' %}"
 			/></a>
 		</div>
-		<div class="valign-wrapper">
+		<div class="col s6 valign-wrapper">
 			<p>
 				<span>We are pretty a-glaze-ing</span>
 				<br />
@@ -50,6 +50,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	let carousel = document.querySelector(".carousel");
 	M.Carousel.init(carousel, {

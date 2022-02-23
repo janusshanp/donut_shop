@@ -19,6 +19,8 @@
     <nav role="navigation">
         <div class="nav-wrapper logo">
             <a href="/" class="brand-logo center"><img class="logo"src="{% static 'main_app/images/logo.png' %}"></a>
+                <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">person_outline</i></a>
+                <ul class="center hide-on-med-and-down">
                 <ul class="right">
                     <li> 
                         <form method="POST" action = "{% url 'search' %}">
@@ -40,16 +42,43 @@
                 </ul>
         </div>
     </nav>  
+    <ul class="sidenav" id="mobile">
+        <form method="POST" action = "{% url 'search' %}">
+            {% csrf_token %}
+            <div class="input-field">
+                <input id="search" type="search" autocomplete="off" name= "searched">
+                <i class="material-icons black-text">search</i>
+            </div> 
+        </form>
+        <li><a href="{% url 'account_profile' %}">Account</a></li>
+        <li><a href="{% url 'cart' %}">Cart</a></li>
+        {% if user.is_authenticated %}
+        <li><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+        <li><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+        <li><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %} 
+    </ul>
     <header>
         <nav class="nav-center" role="navigation">
-            <ul>
-                <li><a href="{% url 'shop' %}">Shop</a></li>
+            <div class="nav-wrapper">
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="center hide-on-med-and-down">
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                    <li><a href="{% url 'daily_flavour' %}">Daily Flavours</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                    <li><a href="{% url 'rewards' %}">Rewards</a></li>
+                <ul> 
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="{% url 'shop' %}">Shop</a></li>
                 <li><a href="{% url 'daily_flavour' %}">Daily Flavours</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'faq' %}">FAQ</a></li>
                 <li><a href="{% url 'rewards' %}">Rewards</a></li>
-            <ul> 
-        </nav>
+        </ul>
     </header>       
             {% block content %}
             {% endblock %}
@@ -81,6 +110,12 @@
                     </div>  
                 </div>
             </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+  });
+</script>
         </footer>
     </body>    
 </html>
